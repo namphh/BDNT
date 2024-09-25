@@ -41,14 +41,14 @@
       />
     </div>
 
-    <div class="form-group"></div>
+    <div class="form-group">
       <label for="port">Port:</label>
       <input
         type="text"
         id="port"
         name="port"
         placeholder="Enter Port"
-        [(ngModel)]="Port"
+        [(ngModel)]="port"
         required
         class="form-control"
       />
@@ -69,10 +69,11 @@
 
     <button type="submit" class="btn btn-primary">Connect database</button>
   </form>
+
   <div style="color: brown;" *ngIf="connectionStatus" class="alert alert-info mt-4">
     {{ connectionStatus }}
   </div>
-  
+
   <div *ngIf="tasks.length > 0" class="results mt-4">
     <h2>Results:</h2>
     <ul class="list-group">

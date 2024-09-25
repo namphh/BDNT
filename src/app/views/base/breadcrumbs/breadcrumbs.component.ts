@@ -31,9 +31,9 @@ export class BreadcrumbsComponent {
     body.append("user", user || 'isempty');
     body.append("password", password || 'isempty');
     body.append("host", host || 'isempty');
-    body.append("host", port || 'isempty');
+    body.append("port", port || 'isempty');
     body.append("database", database || 'isempty');
-    // console.log(user, password, host, database);
+    // console.log(user, password, host, port, database);
     return this.http.post(this.APIURL + "connect_db", body).pipe(
       tap((res: any) => {
         this.tasks = res.data || []; // Cập nhật tasks với dữ liệu từ API
@@ -46,7 +46,7 @@ export class BreadcrumbsComponent {
     if (form.valid) {
       const { user, password, host, port, database } = form.value;
       this.query_all(user, password, host, port, database).subscribe(
-        response => {
+        response => { 
           if (response['status'] === 201) {
             this.connectionStatus = 'Connection successful';
             setTimeout(() => {
