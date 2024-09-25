@@ -1,0 +1,43 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="4">
+    <c-card class="mb-4">
+      <c-card-body>
+        <p><strong>Infra Type:</strong> {{ loaiHTML }}</p>
+        <p><strong>Infra Object:</strong> {{ doiTuongHTML }}</p>
+        <p><strong>Object Station Name:</strong> {{ doiTuongAnh }}</p>
+        <p><strong>Task:</strong> {{ dauViec }}</p>
+        <p><strong>Result:</strong> {{ ketQua }}</p>
+        <p><strong>Reliability:</strong> {{ doChinhXac }}</p>
+        <p><strong>Created At:</strong> {{ khoangThoiGian }}</p>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col xs="8">
+    <!-- Card for Image Paths -->
+    <c-card class="mb-4">
+      <c-card-body>
+        <h5>Images</h5>
+        <c-row>
+          <c-col *ngFor="let imgPath of imagePaths" xs="4" class="mb-3">
+            <img [src]="imgPath" alt="Image" style="width: 100%; height: auto;" />
+          </c-col>
+        </c-row>
+        <p *ngIf="imagePaths.length === 0">No images available.</p> <!-- Message if no images -->
+      </c-card-body>
+    </c-card>
+
+    <!-- Card for Image Results -->
+    <c-card class="mb-4">
+      <c-card-body>
+        <h5>Image Results</h5>
+        <c-row *ngIf="imgResult.length > 0">
+          <c-col *ngFor="let imgRt of imgResult" xs="4" class="mb-3">
+            <img [src]="imgRt" alt="Result Image" style="width: 100%; height: auto;" />
+          </c-col>
+        </c-row>
+        <p *ngIf="imgResult.length === 0">No result images available.</p> <!-- Message if no images -->
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

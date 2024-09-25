@@ -1,0 +1,82 @@
+<c-row ngPreserveWhitespaces class="justify-content-center mb-3">
+  <c-col xs="2">
+    <select class="form-control" [(ngModel)]="inputField1" (ngModelChange)="filterTable()">
+      <option value="">Tất cả</option>
+      <option *ngFor="let option of distinctValues('loaiHTML')" [value]="option">{{ option }}</option>
+    </select>
+  </c-col>
+
+  <c-col xs="2">
+    <select class="form-control" [(ngModel)]="inputField2" (ngModelChange)="filterTable()">
+      <option value="">Tất cả</option>
+      <option *ngFor="let option of distinctValues('doiTuongHTML')" [value]="option">{{ option }}</option>
+    </select>
+  </c-col>
+
+  <c-col xs="2">
+    <select class="form-control" [(ngModel)]="inputField3" (ngModelChange)="filterTable()">
+      <option value="">Tất cả</option>
+      <option *ngFor="let option of distinctValues('doiTuongAnh')" [value]="option">{{ option }}</option>
+    </select>
+  </c-col>
+
+  <c-col xs="2">
+    <select class="form-control" [(ngModel)]="inputField4" (ngModelChange)="filterTable()">
+      <option value="">Tất cả</option>
+      <option *ngFor="let option of distinctValues('dauViec')" [value]="option">{{ option }}</option>
+    </select>
+  </c-col>
+
+  <c-col xs="2">
+    <select class="form-control" [(ngModel)]="inputField5" (ngModelChange)="filterTable()">
+      <option value="">Tất cả</option>
+      <option *ngFor="let option of distinctValues('maTram')" [value]="option">{{ option }}</option>
+    </select>
+  </c-col>
+</c-row>
+
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-body>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Loại HTML</th>
+              <th>Đối tượng HTML</th>
+              <th>Đối tượng ảnh chụp</th>
+              <th>Đầu việc</th>
+              <th>Mã trạm</th>
+              <th>Time</th>
+              <th>Kết quả</th>
+              <th>Độ chính xác</th>
+              <th>Ảnh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of filteredData">
+              <td>{{ row.loaiHTML }}</td>
+              <td>{{ row.doiTuongHTML }}</td>
+              <td>{{ row.doiTuongAnh }}</td>
+              <td>{{ row.dauViec }}</td>
+              <td>{{ row.maTram }}</td>
+              <td>{{ row.khoangThoiGian }}</td>
+              <td>{{ row.ketQua }}</td>
+              <td>{{ row.doChinhXac }}</td>
+              <td>
+                <img 
+                  src="./assets/images/image_icon.png" 
+                  alt="Image" 
+                  (click)="onImageClick(row)" 
+                  style="width: 24px; height: 24px; cursor: pointer;" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" class="text-end">
+    <button class="btn btn-primary" (click)="exportReport()">Xuất báo cáo</button>
+  </c-col>
+</c-row>

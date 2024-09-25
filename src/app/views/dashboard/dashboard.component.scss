@@ -1,0 +1,95 @@
+:host {
+  .legend {
+    small {
+      font-size: x-small;
+    }
+  }
+}
+
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+.title-text {
+  font-size: 2rem; /* Adjust size as needed */
+  text-align: center;
+  font-weight: bold;
+  color: #333; /* Adjust color as needed */
+}
+
+
+/* Ensure text alignment and spacing */
+.table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  thead {
+    background-color: #f8f9fc;
+    th {
+      font-weight: bold;
+    }
+  }
+
+  tbody tr {
+    &:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+}
+
+.table thead {
+  background-color: #343a40; /* Dark header background */
+  color: #ffffff; /* White text color */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* Stripe color */
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6; /* Border color */
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6; /* Border color for cells */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Adjust title size */
+}
+
+.title-container {
+  margin-bottom: 1rem; /* Margin below the title */
+}
+
+.text-center {
+  text-align: center; /* Center text */
+}
+
+.body {
+  background-image: url('../../../assets/brand/backgound.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

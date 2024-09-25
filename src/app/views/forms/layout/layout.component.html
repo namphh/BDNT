@@ -1,0 +1,107 @@
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Look up Results</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3">
+          <c-col md="3">  
+            <select cSelect id="inputField1">
+              <option value="" disabled selected>Infra Type</option>
+              <option *ngFor="let option of options['Loại hạ tầng mạng lưới']">{{ option }}</option>
+            </select>
+          </c-col>
+          <c-col md="3">
+            <select cSelect id="inputField2">
+              <option value="" disabled selected>Infra Object</option>
+              <option *ngFor="let option of options['Đối tượng hạ tầng mạng lưới']">{{ option }}</option>
+            </select>
+          </c-col>
+          <c-col md="3">
+            <select cSelect id="inputField3">
+              <option value="" disabled selected>Object Station Name</option>
+              <option *ngFor="let option of options['Đối tượng ảnh chụp']">{{ option }}</option>
+            </select>
+          </c-col>
+          <c-col md="3">
+            <select cSelect id="inputField4">
+              <option value="" disabled selected>Task</option>
+              <option *ngFor="let option of options['Đầu việc']">{{ option }}</option>
+            </select>
+          </c-col>
+          <c-col md="2">
+            <select cSelect id="inputField5">
+              <option value="" disabled selected>Station Code</option>
+              <option *ngFor="let option of options['Mã trạm']">{{ option }}</option>
+            </select>
+          </c-col>
+
+          <c-col md="2">
+            <select cSelect id="inputField6">
+              <option value="" disabled selected>Time Period
+              </option>
+              <option>1 month - now</option>
+              <option>3 month - now</option>
+              <option>6 month - now</option>
+              <option>1 month - now</option>
+            </select>
+          </c-col>
+          <c-col md="2">
+            <select cSelect id="inputField7">
+              <option value="" disabled selected>Results</option>
+              <option>Good</option>
+              <option>Fail</option>
+            </select>
+          </c-col>
+          <c-col md="2">
+            <input type="text" id="inputField8" placeholder="Reliability" />
+          </c-col>
+          <c-col md="6" class="c-col-button">
+            <button type="submit" (click)="onSubmit($event)" cButton color="primary">Export Report</button>
+            <button type="submit" (click)="exportReport()" cButton color="primary">Export Excel</button>
+          </c-col>          
+        </form>
+
+        <!-- Results Table -->
+        <div *ngIf="List_HTML.html_type.length > 0" class="mt-4">
+          <h5>Search Results:</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Infra Type</th>
+                <th>Infra Object</th>
+                <th>Object Station Name</th>
+                <th>Task</th>
+                <th>Station Code</th>
+                <th>Results</th>
+                <th>Created At</th>
+                <th>Reliability</th>
+                <th>URLs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of List_HTML.html_type; let i = index">
+                <td>{{ item }}</td>
+                <td>{{ List_HTML.html_object[i] }}</td>
+                <td>{{ List_HTML.object_station[i] }}</td>
+                <td>{{ List_HTML.task_code[i] }}</td>
+                <td>{{ List_HTML.station_code[i] }}</td>
+                <td>{{ List_HTML.result[i] }}</td>
+                <td>{{ List_HTML.created_at[i] }}</td>
+                <td>{{ List_HTML.confidence_score[i] }}</td>
+                <td>
+                  <a (click)="navigateToCard(List_HTML, i)">
+                    <img src="assets/images/image_icon.png" alt="Click to view" style="width: 24px; height: 24px;">
+                  </a>
+                </td>
+                
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

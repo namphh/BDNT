@@ -1,0 +1,51 @@
+:host {
+    .legend {
+      small {
+        font-size: x-small;
+      }
+    }
+  }
+  
+  
+  .title-container {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust spacing as needed */
+  }
+  
+  .title-text {
+    font-size: 2rem; /* Adjust size as needed */
+    text-align: center;
+    font-weight: bold;
+    color: #333; /* Adjust color as needed */
+  }
+
+
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; // Adjust the spacing as needed
+  
+    div {
+      flex: 1; // This will allow the dropdowns to take equal space
+      min-width: 200px; // Optional: Set a minimum width for the dropdowns
+    }
+  }
+
+  .filter-select {
+    margin-left: 5px; // Space between header and dropdown
+    width: auto; // Adjust width as needed
+    padding: 5px; // Adjust padding as needed
+  }
+  
+
+//   .table {
+//     table-layout: fixed; /* Ensures the table maintains its layout */
+//     width: 100%; /* Full width of the parent container */
+//   }
+  
+//   th, td {
+//     overflow: hidden; /* Hides overflowing text */
+//     white-space: nowrap; /* Prevents text from wrapping */
+//     text-overflow: ellipsis; /* Displays an ellipsis (...) for overflowed text */
+//     max-width: 150px; /* Adjust as needed for your design */
+//   }

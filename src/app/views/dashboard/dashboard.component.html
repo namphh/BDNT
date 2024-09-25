@@ -1,0 +1,197 @@
+<!-- Title -->
+<div class="title-container text-center mb-4">
+  <h1 class="title-text">OVERVIEW</h1>
+</div>
+
+<!-- First row with two columns -->
+<c-row class="mt-4">
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <c-row>
+          <c-col sm="12">
+            <h4 class="card-title mb-0 text-center" id="visitsChart1">Number of Monitoring Requests</h4>
+          </c-col>
+        </c-row>
+        <c-chart
+          [data]="chart[0].data"
+          [height]="300"
+          [ngStyle]="{ 'marginTop.px': 40 }"
+          [options]="chart[0].options"
+          [type]="'bar'"
+        >
+          Bar chart for visits 1
+        </c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <c-row>
+          <c-col sm="12">
+            <h4 class="card-title mb-0 text-center" id="visitsChart2">Number of Monitoring Stations</h4>
+          </c-col>
+        </c-row>
+        <c-chart
+          [data]="chart[1].data"
+          [height]="300"
+          [ngStyle]="{ 'marginTop.px': 40 }"
+          [options]="chart[1].options"
+          [type]="'bar'"
+        >
+          Bar chart for visits 2
+        </c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- Second row with two columns -->
+<c-row class="mt-4">
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <c-row>
+          <c-col sm="12">
+            <h4 class="card-title mb-0 text-center" id="visitsChart3">Requests Over Time</h4>
+          </c-col>
+        </c-row>
+        <c-chart
+          [data]="chart[2].data"
+          [height]="300"
+          [ngStyle]="{ 'marginTop.px': 40 }"
+          [options]="chart[2].options"
+          [type]="'bar'"
+        >
+          Bar chart for visits 3
+        </c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <c-row>
+          <c-col sm="12">
+            <h4 class="card-title mb-0 text-center" id="visitsChart4">Number of Error Requests</h4>
+          </c-col>
+        </c-row>
+        <c-chart
+          [data]="chart[3].data"
+          [height]="300"
+          [ngStyle]="{ 'marginTop.px': 40 }"
+          [options]="chart[3].options"
+          [type]="'bar'"
+        >
+          Bar chart for visits 4
+        </c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- Third row with two columns -->
+<c-row>
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <h4 class="card-title mb-4 text-center">Monthly Requests</h4>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Month</th>
+              <th scope="col">Number of Approved Requests</th>
+              <th scope="col">Number of Error Requests</th>
+              <th scope="col">Total Requests</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let month of monthlyRequests.rejected_requests; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ monthlyRequests.approved_requests[i] }}</td>
+              <td>{{ monthlyRequests.rejected_requests[i] }}</td>
+              <td>{{ monthlyRequests.total_requests[i] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <h4 class="card-title mb-4 text-center">Top 10 Provinces with Most Errors</h4>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Station Code</th>
+              <th scope="col">Number of Error Requests</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let province of top10ProvincesErrors; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ province.province }}</td>
+              <td>{{ province.error_count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- Fourth row with two columns -->
+<c-row class="mt-4">
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <h4 class="card-title mb-4 text-center">Top 10 Objects with Errors</h4>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Object Station Name</th>
+              <th scope="col">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let object of top10Objects; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ object.object }}</td>
+              <td>{{ object.count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col xs="12" md="6" xl="6">
+    <c-card class="mb-4">
+      <c-card-body>
+        <h4 class="card-title mb-4 text-center">Top 10 Tasks with Most Errors</h4>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Task</th>
+              <th scope="col">Number of Error Requests</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of top10Tasks; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ task.name }}</td>
+              <td>{{ task.error_count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
