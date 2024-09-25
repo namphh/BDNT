@@ -20,16 +20,18 @@ export class BreadcrumbsComponent {
   user: string = '';
   password: string = '';
   host: string = '';
+  port: string = '';
   database: string = '';
   connectionStatus: string = '';
 
   constructor(private router: Router, private http: HttpClient) {}
 
-  query_all(user: string, password: string, host: string, database: string): Observable<any> {
+  query_all(user: string, password: string, host: string, port: string, database: string): Observable<any> {
     const body = new FormData();
     body.append("user", user || 'isempty');
     body.append("password", password || 'isempty');
     body.append("host", host || 'isempty');
+    body.append("host", port || 'isempty');
     body.append("database", database || 'isempty');
     // console.log(user, password, host, database);
     return this.http.post(this.APIURL + "connect_db", body).pipe(
@@ -42,8 +44,8 @@ export class BreadcrumbsComponent {
 
   submitForm(form: NgForm) {
     if (form.valid) {
-      const { user, password, host, database } = form.value;
-      this.query_all(user, password, host, database).subscribe(
+      const { user, password, host, port, database } = form.value;
+      this.query_all(user, password, host, port, database).subscribe(
         response => {
           if (response['status'] === 201) {
             this.connectionStatus = 'Connection successful';

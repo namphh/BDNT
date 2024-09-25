@@ -18,10 +18,11 @@ app.add_middleware(
 
 
 class BDNT:
-    def __init__(self, user, password, host, database) -> None:
+    def __init__(self, user, password, host, port, database) -> None:
         self.user = user
         self.password = password
         self.host = host
+        self.port = port
         self.database = database
         self.connect = None
         self.cur = None
@@ -32,6 +33,7 @@ class BDNT:
                 user=self.user,
                 password=self.password,
                 host=self.host,
+                port=int(self.port),
                 database=self.database
             )
             self.cur = self.connect.cursor()
@@ -47,19 +49,21 @@ class BDNT:
             print("MariaDB connection is closed")
 
 # Initialize BDNT instance without credentials initially
-bdnt_instance = BDNT("", "", "", "")
+bdnt_instance = BDNT("", "", "", "", "")
 
 @app.post("/connect_db")
 async def connect_db(
     user: str = Form(...), 
     password: str = Form(...), 
-    host: str = Form(...), 
+    host: str = Form(...),
+    port: str = Form(...),
     database: str = Form(...)
 ):
     # Update the BDNT instance with the form data
     bdnt_instance.user = user
     bdnt_instance.password = password
     bdnt_instance.host = host
+    bdnt_instance.port = port
     bdnt_instance.database = database
     
     # Connect to the database
