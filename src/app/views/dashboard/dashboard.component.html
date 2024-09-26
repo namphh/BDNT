@@ -1,6 +1,6 @@
 <div *ngIf="isLoading" class="spinner-container text-center">
   <c-spinner color="primary" size="sm" variant="grow"></c-spinner>
-  <p>Loading Data ...</p>
+  <p>Đang tải ...</p>
 </div>
 
 <div *ngIf="!isLoading">
@@ -16,7 +16,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart1">Số lượng requests giám sát</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart1">Số lượng yêu cầu giám sát</h4>
             </c-col>
           </c-row>
           <c-chart
@@ -61,7 +61,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart3">Số lượng requests đạt</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart3">Số lượng yêu cầu đạt</h4>
             </c-col>
           </c-row>
           <c-chart
@@ -82,7 +82,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart4">Số lượng requests lỗi</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart4">Số lượng yêu cầu lỗi</h4>
             </c-col>
           </c-row>
           <c-chart
@@ -104,14 +104,14 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Số lượng requests theo tháng</h4>
+          <h4 class="card-title mb-4 text-center">Số lượng yêu cầu theo tháng</h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Tháng</th>
-                <th scope="col">Số requests đạt</th>
-                <th scope="col">Số requests lỗi</th>
-                <th scope="col">Số requests tổng</th>
+                <th scope="col">Số yêu cầu đạt</th>
+                <th scope="col">Số yêu cầu lỗi</th>
+                <th scope="col">Số yêu cầu tổng</th>
               </tr>
             </thead>
             <tbody>
@@ -232,7 +232,7 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 Hạ Tầng Mạng Lưới kém nhất</h4>
+          <h4 class="card-title mb-4 text-center">Top 10 đối tượng Hạ Tầng Mạng Lưới kém nhất</h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>

@@ -48,7 +48,8 @@ class BDNT:
             self.connect.close()
 
 # Initialize BDNT instance without credentials initially
-bdnt_instance = BDNT("root", "r00tdb", "10.254.139.26", "8094", "vcvp-v4")
+bdnt_instance = BDNT("root", "r00tdb", "10.254.139.26", "8094", "cvp-v4")
+# bdnt_instance = BDNT("root", "123456", "127.0.0.1", "3306", "bdnt")
 
 @app.post("/connect_db")
 async def connect_db(
@@ -121,8 +122,8 @@ async def top_10_nation_errors():
     bdnt_instance.connect_SQL()
 
     query = '''
-    SELECT 
-    R.station_code ,
+    SELECT DISTINCT
+    R.station_code,
     R.request_id
     FROM 
         requests_info R
@@ -145,7 +146,7 @@ async def top_10_nation_errors():
             my_dict[station_code [:3]] += 1 
         else:
             my_dict[station_code [:3]] = 1
-    top_10_provinces = sorted(my_dict.items(), key=lambda x: x[1], reverse=False)[:10]
+    top_10_provinces = sorted(my_dict.items(), key=lambda x: x[1], reverse=True)[:10]
     for province, value in top_10_provinces:
         results.append({
             "province_code": province,
@@ -169,7 +170,7 @@ async def top_10_html_errors():
     query = '''
     SELECT
 	H.infra_object,
-    COUNT(R.request_id) AS Num_Fail
+    COUNT(distinct(R.request_id)) AS Num_Fail
     FROM 
         requests_info R
     JOIN 
@@ -184,7 +185,7 @@ async def top_10_html_errors():
             HAVING MIN(result) = 0
         )
     GROUP BY H.infra_object
-    ORDER BY Num_Fail
+    ORDER BY Num_Fail DESC
     LIMIT 10
     '''
     bdnt_instance.cur.execute(query)
@@ -239,7 +240,7 @@ async def num_station_monitor():
     bdnt_instance.connect_SQL()
 
     query = '''
-    SELECT MONTH(R.created_at) AS MONTH_ID, COUNT(R.station_code) AS Num_station FROM requests_info R
+    SELECT MONTH(R.created_at) AS MONTH_ID, COUNT(distinct(R.station_code)) AS Num_station FROM requests_info R
     WHERE MONTH(R.created_at)
     GROUP BY MONTH(R.created_at)
     '''
@@ -686,7 +687,6 @@ async def query_all(
     result = None if result == "isempty" else result
     acc = None if acc == "isempty" else acc
     
-
     bdnt_instance.connect_SQL()
 
     query = '''

@@ -85,24 +85,24 @@
 
         <div *ngIf="isLoading" class="spinner-container text-center">
           <c-spinner color="primary" size="sm" variant="grow"></c-spinner>
-          <p>Loading Data ...</p>
+          <p>Đang tải ...</p>
         </div>
         
         <div *ngIf="!isLoading">
           <div *ngIf="List_HTML.html_type.length > 0" class="mt-4">
-            <h5>Search Results:</h5>
+            <h5>Kết quả tìm kiếm:</h5>
             <table class="table">
               <thead>
                 <tr>
-                  <th>Infra Type</th>
-                  <th>Infra Object</th>
-                  <th>Object Station Name</th>
-                  <th>Task</th>
-                  <th>Station Code</th>
-                  <th>Results</th>
-                  <th>Created At</th>
-                  <th>Reliability</th>
-                  <th>URLs</th>
+                  <th>Loại</th>
+                  <th>Đối tượng</th>
+                  <th>Đối tượng ảnh chụp</th>
+                  <th>Công việc</th>
+                  <th>Mã trạm</th>
+                  <th>Kết quả</th>
+                  <th>Thời gian</th>
+                  <th>Độ tin cậy</th>
+                  <th>Chi tiết</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,7 +117,7 @@
                   <td>{{ List_HTML.confidence_score[i] }}</td>
                   <td>
                     <a (click)="navigateToCard(List_HTML, i)">
-                      <img src="assets/images/image_icon.png" alt="Click to view" style="width: 24px; height: 24px;">
+                      <span style="color: red; text-decoration: underline; cursor: pointer;">Xem</span>
                     </a>
                   </td>
                 </tr>
