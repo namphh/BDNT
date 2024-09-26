@@ -122,7 +122,7 @@ async def top_10_nation_errors():
 
     query = '''
     SELECT 
-    R.nation_code,
+    R.station_code ,
     R.request_id
     FROM 
         requests_info R
@@ -140,12 +140,12 @@ async def top_10_nation_errors():
     results = []
     my_dict  = {
     }
-    for (nation_code, request_id) in bdnt_instance.cur:
-        if nation_code[:3] in my_dict:
-            my_dict[nation_code[:3]] += 1 
+    for (station_code , request_id) in bdnt_instance.cur:
+        if station_code [:3] in my_dict:
+            my_dict[station_code [:3]] += 1 
         else:
-            my_dict[nation_code[:3]] = 1
-    top_10_provinces = sorted(my_dict.items(), key=lambda x: x[1], reverse=True)[:10]
+            my_dict[station_code [:3]] = 1
+    top_10_provinces = sorted(my_dict.items(), key=lambda x: x[1], reverse=False)[:10]
     for province, value in top_10_provinces:
         results.append({
             "province_code": province,
