@@ -218,9 +218,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let province of top10ProvincesErrors; let i = index">
+              <tr *ngFor="let province of top10NationErrors; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ province.province }}</td>
+                <td>{{ province.nation }}</td>
                 <td>{{ province.error_count }}</td>
               </tr>
             </tbody>
@@ -232,13 +232,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 tỉnh có số requests đạt nhiều nhất</h4>
+          <h4 class="card-title mb-4 text-center">Top 10 Hạ Tầng Mạng Lưới kém nhất</h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Mã Tỉnh</th>
-                <th scope="col">Số requests đạt</th>
+                <th scope="col">Đối tượng</th>
+                <th scope="col">Số Lỗi</th>
               </tr>
             </thead>
             <tbody>
