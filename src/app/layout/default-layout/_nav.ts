@@ -2,16 +2,16 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Overview',
+    name: 'Tổng Quan',
     url: '/dashboard',
     iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
-      text: 'NEW'
+      text: 'Mới'
     }
   },
   {
-    name: 'List of HTML',
+    name: 'Hạ Tầng Mạng Lưới',
     url: '/base/tabs',
     // iconComponent: { name: 'cil-speedometer' },
     badge: {
@@ -20,7 +20,7 @@ export const navItems: INavData[] = [
     }
   },
   {
-    name: 'Search',
+    name: 'Tìm Kiếm',
     url: '/forms/layout',
     // iconComponent: { name: 'cil-speedometer' },
     badge: {

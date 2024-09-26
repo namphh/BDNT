@@ -40,14 +40,6 @@ export class CardsComponent {
       this.doChinhXac = params['doChinhXac'] || '';
       this.khoangThoiGian = params['khoangThoiGian'] || '';
 
-      // Extract and clean the imagePaths parameter
-      if (params['imagePaths']) {
-        // Remove brackets and split by comma
-        const cleanedPaths = params['imagePaths'].replace(/[\[\]"]/g, '');
-        this.imagePaths = cleanedPaths.split(',').map((path: string) => `assets/${path.trim()}`);
-      } else {
-        this.imagePaths = [];
-      }
     });
   }
 
@@ -64,8 +56,24 @@ export class CardsComponent {
   query_all(body: FormData): Observable<any> {
     return this.http.post(this.APIURL + 'get_results', body).pipe(
       tap((res: any) => {
-        this.tasks = res.data.images || []; // Update tasks with API data
+        this.tasks = res.images || []; // Update tasks with API data
         this.imgResult = this.tasks.map(path => {
+          return 'data:image/jpeg;base64,' + path;
+        });
+      })
+    );
+  }
+  private createFormData_1(): FormData {
+    const body = new FormData();
+    body.append("request_id", this.mayeucau);
+    return body;
+  }
+
+  query_all_1(body: FormData): Observable<any> {
+    return this.http.post(this.APIURL + 'get_origin', body).pipe(
+      tap((res: any) => {
+        this.tasks = res.images || []; // Update tasks with API data
+        this.imagePaths = this.tasks.map(path => {
           return 'data:image/jpeg;base64,' + path;
         });
       })
@@ -73,9 +81,9 @@ export class CardsComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.mayeucau)
-    console.log(this.madauViec)
-    console.log(this.imagePaths)
+    const formData1 = this.createFormData_1(); // Create FormData
+    this.query_all_1(formData1).subscribe(() => {
+    });    
     const formData = this.createFormData(); // Create FormData
     this.query_all(formData).subscribe(() => {
     });

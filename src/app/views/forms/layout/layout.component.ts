@@ -12,7 +12,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { DataService } from '../../../data.service'
 import { AppConfig } from 'src/app/app-config';
-
+import { SpinnerModule } from '@coreui/angular';
 
 @Component({
   selector: 'app-layout',
@@ -41,7 +41,8 @@ import { AppConfig } from 'src/app/app-config';
     InputGroupComponent, 
     InputGroupTextDirective, 
     CommonModule, 
-    HttpClientModule 
+    HttpClientModule,
+    SpinnerModule
   ]
 })
 export class LayoutComponent {
@@ -94,11 +95,15 @@ export class LayoutComponent {
   
     this.router.navigate(['/cards'], { queryParams });
   }
+
+
   ngOnInit(): void {
     this.resetListHTML();
     this.loadOptions();
     this.loadData(); // Load data from the service
   }
+
+
 
   loadData() {
     if (this.dataService.listHTML.html_type.length > 0) {
@@ -160,6 +165,13 @@ export class LayoutComponent {
     return arr.filter((value, index, self) => value && self.indexOf(value) === index);
   }
 
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // Định dạng yyyy-mm-dd
+  }
+
   resetListHTML() {
     this.List_HTML = { 
       html_type: [], 
@@ -171,13 +183,14 @@ export class LayoutComponent {
       station_code: [],
       result: [],
       created_at: [],
-      confidence_score: [],
+      confidence_score: [], 
       urls: []
     };
   }
 
   exportReport() {
     // Define table headers
+
     const headers = [
       ['Infra Type', 'Infra Object', 'Object Station Name', 'Request ID', 'Task Name', 'Task ID', 'Station ID', 'Result', 'Time', 'Reliability']
     ];
@@ -212,7 +225,10 @@ export class LayoutComponent {
     saveAs(blob, 'report.xlsx');
   }
 
+
+  isLoading: boolean = false;
   onSubmit(event: Event) {
+    this.isLoading = true;
     event.preventDefault();
     this.resetListHTML();
     
@@ -221,18 +237,46 @@ export class LayoutComponent {
     const inputField3 = (document.getElementById('inputField3') as HTMLSelectElement).value;
     const inputField4 = (document.getElementById('inputField4') as HTMLSelectElement).value;
     const inputField5 = (document.getElementById('inputField5') as HTMLSelectElement).value;
+    const inputField6 = (document.getElementById('inputField6') as HTMLSelectElement).value;
+    const inputField7 = (document.getElementById('inputField7') as HTMLSelectElement).value;
     const inputField8 = (document.getElementById('inputField8') as HTMLInputElement).value;
+
+    let dateRange: Date;
+    const currentDate = new Date();
+    
+    switch (inputField6) {
+      case '': 
+          dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
+          break;
+      case '1 month - now': 
+          dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
+          break;
+      case '3 months - now':
+          dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 3));
+          break;
+      case '6 months - now':
+          dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 6));
+          break;
+      case '1 year - now':
+          dateRange = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1));
+          break;
+      default:
+          dateRange = new Date();
+          break;
+    }
 
     let body = new FormData();
 
     // Set up the conditions to allow 'all' if the header is selected
-    body.append("html_type", inputField1 === 'Loại hạ tầng mạng lưới' ? 'all' : inputField1 || 'isempty');
-    body.append("html_object", inputField2 === 'Đối tượng hạ tầng mạng lưới' ? 'all' : inputField2 || 'isempty');
-    body.append("object_station", inputField3 === 'Đối tượng ảnh chụp' ? 'all' : inputField3 || 'isempty');
-    body.append("problem", inputField4 === 'Đầu việc' ? 'all' : inputField4 || 'isempty');
-    body.append("station_code", inputField5 === 'Mã trạm' ? 'all' : inputField5 || 'isempty');
+    body.append("html_type", inputField1 === 'Tất cả' ? 'isempty' : inputField1 || 'isempty');
+    body.append("html_object", inputField2 === 'Tất cả' ? 'isempty' : inputField2 || 'isempty');
+    body.append("object_station", inputField3 === 'Tất cả' ? 'isempty' : inputField3 || 'isempty');
+    body.append("problem", inputField4 === 'Tất cả' ? 'isempty' : inputField4 || 'isempty');
+    body.append("station_code", inputField5 === 'Tất cả' ? 'isempty' : inputField5 || 'isempty');
+    body.append("time", inputField6 === 'Tất cả' ? 'isempty' : this.formatDate(dateRange) || 'isempty'); // Định dạng ngày
+    body.append("result", inputField7 === 'Tất cả' ? 'isempty' : (inputField7 === 'Pass' ? '1' : '0'));
     body.append("acc", inputField8 || 'isempty');
-
+    console.log(inputField1, inputField2, inputField3, inputField4, inputField5, inputField6, inputField7, inputField8)
     // Send the request
     this.query_all(body).subscribe((res: any) => {
       this.List_HTML.html_type = res.data.map((task: any) => task.html_type);
@@ -246,7 +290,9 @@ export class LayoutComponent {
       this.List_HTML.created_at = res.data.map((task: any) => task.created_at);
       this.List_HTML.confidence_score = res.data.map((task: any) => task.confidence_score);
       this.List_HTML.urls = res.data.map((task: any) => task.urls);
+      this.isLoading = false;
     });
+
 }
   query_all(body: FormData): Observable<any> {
     return this.http.post(this.APIURL + "query_all", body);

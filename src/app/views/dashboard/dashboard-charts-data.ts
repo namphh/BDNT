@@ -37,8 +37,8 @@ export class DashboardChartsData {
   }
 
   initMainChart(period: string = 'Month', customData: number[] = []): IChartProps {
-    const brandInfo = getStyle('--cui-info') ?? '#20a8d8';
-    const brandInfoBg = hexToRgba(brandInfo, 10);
+    // Define red color
+    const redColor = '#ff0000'; // Red color for the bars
   
     // Use custom data if provided, otherwise default to random data
     const data = customData.length ? customData : Array(12).fill(0).map(() => this.random(10, 30));
@@ -46,22 +46,21 @@ export class DashboardChartsData {
     const datasets: ChartDataset[] = [
       {
         data,
-        label: 'Dataset',
-        backgroundColor: brandInfoBg,
-        borderColor: brandInfo,
-        pointHoverBackgroundColor: brandInfo,
-        borderWidth: 2,
-        fill: true
+        label: 'Số lượng',
+        backgroundColor: redColor,  // Fill the bars with red color
+        borderColor: redColor,      // Border red color (optional)
+        borderWidth: 1,             // Optional: Border thickness of the bars
+        fill: true                  // Fill the bars (for bar chart, it's filled by default)
       }
     ];
   
     const labels = [
-      '1', '2', '3', '4', '5', '6', '7',
-      '8', '9', '10', '11', '12'
+      'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7',
+      'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
     ];
   
     const scales = this.getScales();
-
+  
     const plugins: DeepPartial<PluginOptionsByType<any>> = {
       legend: {
         display: false // Hide the legend (annotation)
@@ -78,20 +77,14 @@ export class DashboardChartsData {
       plugins,
       scales,
       elements: {
-        line: {
-          tension: 0.4
-        },
-        point: {
-          radius: 0,
-          hitRadius: 10,
-          hoverRadius: 4,
-          hoverBorderWidth: 3
+        bar: {
+          borderRadius: 4,           // Optional: Adds rounding to the bar edges
         }
       }
     };
   
     return {
-      type: 'line',
+      type: 'bar', // Change chart type to 'bar'
       data: {
         labels,
         datasets
@@ -99,6 +92,8 @@ export class DashboardChartsData {
       options
     };
   }
+  
+  
   
 
   getScales() {

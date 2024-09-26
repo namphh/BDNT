@@ -47,7 +47,7 @@ interface FilterOptions {
 })
 export class AppTabsComponent {
   public tableData: TableData[] = [];
-  private APIURL = `${AppConfig.server}/`;  // Sử dụng server URL
+  private APIURL = `${AppConfig.server}/`;  // Using server URL
   public update_tab: any[] = [];
   
   public selectedFilters: { [key: string]: string } = {
@@ -64,8 +64,6 @@ export class AppTabsComponent {
     dauViec: []
   };
 
-  public selectedHeader: string = '';
-
   constructor(private http: HttpClient, private router: Router, private dataService: DataService) {}
 
   ngOnInit(): void {
@@ -79,7 +77,6 @@ export class AppTabsComponent {
     return this.http.get(this.APIURL + "query_all_html").pipe(
       tap((res: any) => {
         this.update_tab = res.data;
-        // console.log(this.update_tab);
       })
     );
   }
@@ -94,27 +91,9 @@ export class AppTabsComponent {
         dauViec: task_code
       });
     });
-    // console.log(this.tableData);
   }
 
-  private getUniqueValues(key: keyof TableData): string[] {
-    const values = this.tableData.map(item => item[key]);
-    // console.log(values);
-    return Array.from(new Set(values));
-  }
-
-  public updateFilterOptions() {
-    this.filterOptions = {
-      loaiHTML: this.getUniqueValues('loaiHTML'),
-      doiTuongHTML: this.getUniqueValues('doiTuongHTML'),
-      doiTuongAnhChup: this.getUniqueValues('doiTuongAnhChup'),
-      dauViec: this.getUniqueValues('dauViec')
-    };
-    
-    // Reset the selected filter when changing the header
-    this.selectedFilters[this.selectedHeader] = '';
-  }
-
+  // This method returns filtered data based on currently selected filters
   public get filteredData(): TableData[] {
     return this.tableData.filter(item => {
       return (
@@ -124,5 +103,23 @@ export class AppTabsComponent {
         (!this.selectedFilters['dauViec'] || item['dauViec'] === this.selectedFilters['dauViec'])
       );
     });
+  }
+
+  // Update the filter options dynamically based on the current filtered data
+  public updateFilterOptions() {
+    const filteredTableData = this.filteredData;
+
+    this.filterOptions = {
+      loaiHTML: this.getUniqueValues('loaiHTML', filteredTableData),
+      doiTuongHTML: this.getUniqueValues('doiTuongHTML', filteredTableData),
+      doiTuongAnhChup: this.getUniqueValues('doiTuongAnhChup', filteredTableData),
+      dauViec: this.getUniqueValues('dauViec', filteredTableData)
+    };
+  }
+
+  // Get unique values from the filtered data for each column
+  private getUniqueValues(key: keyof TableData, data: TableData[]): string[] {
+    const values = data.map(item => item[key]);
+    return Array.from(new Set(values));  // Return unique values only
   }
 }

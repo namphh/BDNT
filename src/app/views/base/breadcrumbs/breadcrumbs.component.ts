@@ -49,9 +49,9 @@ export class BreadcrumbsComponent {
         response => { 
           if (response['status'] === 201) {
             this.connectionStatus = 'Connection successful';
-            setTimeout(() => {
-              this.router.navigate(['/dashboard']);        
-            }, 2000);        
+            // setTimeout(() => {
+            //   this.router.navigate(['/dashboard']);        
+            // }, 2000);        
           } else {
             this.connectionStatus = 'Connection failed, please try again';
           }

@@ -69,7 +69,7 @@ export class LoginComponent {
         console.log(this.tasks)
         if (this.tasks ===201) {
           this.sessionService.saveData('jwt_token', 'your_generated_token');
-          this.router.navigateByUrl('/base/breadcrumbs');
+          this.router.navigateByUrl('/dashboard');
         } else {
           this.isLoading = false;
           this.isShowNotify = true;

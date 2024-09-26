@@ -1,5 +1,5 @@
 <div class="title-container text-center mb-4">
-  <h1 class="title-text">List of Network Infrastructure</h1>
+  <h1 class="title-text">Danh sách Hạ Tầng Mạng Lưới</h1>
 </div>
 
 <c-row>
@@ -9,33 +9,33 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th style="width: 15%;">Infra Type</th>
-              <th style="width: 28%;">Infra Object</th>
-              <th style="width: 28%;">Object Station Name</th>
-              <th style="width: 28%;">Task</th>
+              <th style="width: 15%;">Loại</th>
+              <th style="width: 28%;">Đối tượng</th>
+              <th style="width: 28%;">Đối tượng ảnh chụp</th>
+              <th style="width: 28%;">Công việc</th>
             </tr>
             <tr>
               <th style="padding: 0; margin-right: 10px;">
-                <select id="loaiHTML" [(ngModel)]="selectedFilters['loaiHTML']" class="filter-select">
-                  <option value="">All</option>
+                <select id="loaiHTML" [(ngModel)]="selectedFilters['loaiHTML']" class="filter-select" (change)="updateFilterOptions()">
+                  <option value="">Tất cả</option>
                   <option *ngFor="let option of filterOptions.loaiHTML" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0; margin-right: 10px;">
-                <select id="doiTuongHTML" [(ngModel)]="selectedFilters['doiTuongHTML']" class="filter-select">
-                  <option value="">All</option>
+                <select id="doiTuongHTML" [(ngModel)]="selectedFilters['doiTuongHTML']" class="filter-select" (change)="updateFilterOptions()">
+                  <option value="">Tất cả</option>
                   <option *ngFor="let option of filterOptions.doiTuongHTML" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0; margin-right: 10px;">
-                <select id="doiTuongAnhChup" [(ngModel)]="selectedFilters['doiTuongAnhChup']" class="filter-select">
-                  <option value="">All</option>
+                <select id="doiTuongAnhChup" [(ngModel)]="selectedFilters['doiTuongAnhChup']" class="filter-select" (change)="updateFilterOptions()">
+                  <option value="">Tất cả</option>
                   <option *ngFor="let option of filterOptions.doiTuongAnhChup" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0;">
-                <select id="dauViec" [(ngModel)]="selectedFilters['dauViec']" class="filter-select">
-                  <option value="">All</option>
+                <select id="dauViec" [(ngModel)]="selectedFilters['dauViec']" class="filter-select" (change)="updateFilterOptions()">
+                  <option value="">Tất cả</option>
                   <option *ngFor="let option of filterOptions.dauViec" [value]="option">{{ option }}</option>
                 </select>
               </th>
@@ -57,14 +57,14 @@
 
 <style>
   .filter-select {
-    margin: 5px 0; 
-    padding: 0.5rem; 
-    border: 1px solid #ced4da; 
-    border-radius: 4px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    width: calc(100% - 10px); 
+    margin: 5px 0;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 10px);
   }
   th {
-    padding: 0 10px; 
+    padding: 0 10px;
   }
 </style>

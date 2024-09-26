@@ -29,6 +29,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { SpinnerModule } from '@coreui/angular';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -57,7 +58,8 @@ import { tap } from 'rxjs/operators';
     CardHeaderComponent,
     TableDirective,
     AvatarComponent,
-    HttpClientModule
+    HttpClientModule,
+    SpinnerModule
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -79,6 +81,9 @@ export class DashboardComponent implements OnInit {
   tasks_num_station: any = [];
   tasks_top10_oj: any = [];
   tasks_top10_task: any = [];
+  tasks_top10_nation: any = [];
+  tasks_top10_html: any = [];
+
 
   private APIURL = `${AppConfig.server}/`;  // Sử dụng server URL
   
@@ -98,6 +103,24 @@ export class DashboardComponent implements OnInit {
       tap((res: any) => {
         this.tasks_top10_prov = res.data;
         this.updatetop10ProvincesErrors();
+      })
+    );
+  }
+
+  top_10_nation_error(): Observable<any> {
+    return this.http.get(this.APIURL + "top_10_nation_errors").pipe(
+      tap((res: any) => {
+        this.tasks_top10_nation = res.data;
+        this.updatetop10NationErrors();
+      })
+    );
+  }
+
+  top_10_html_error(): Observable<any> {
+    return this.http.get(this.APIURL + "top_10_html_errors").pipe(
+      tap((res: any) => {
+        this.tasks_top10_html = res.data;
+        this.updatetop10htmlErrors();
       })
     );
   }
@@ -163,6 +186,14 @@ export class DashboardComponent implements OnInit {
     { province: "", error_count: 0 },
   ];
 
+  public top10NationErrors = [
+    { nation: "", error_count: 0 },
+  ];
+
+  public top10htmlErrors = [
+    { infra_type: "", error_count: 0 },
+  ];
+
   public top10Objects = [
     { object: '', count: 0 },
   ];
@@ -179,6 +210,32 @@ export class DashboardComponent implements OnInit {
       const { station_code, Num_Error } = task;
       if (this.n < 10 && Num_Error > 0) {
         this.top10ProvincesErrors.push({ province: station_code, error_count: Num_Error });
+        this.n += 1;
+      }
+    });
+  }
+
+  updatetop10NationErrors() {
+    this.n = 0;
+    // console.log(this.tasks_top10_prov);
+    this.top10NationErrors = [];
+    this.tasks_top10_nation.forEach((task: any) => {
+      const { province_code, Num_Error } = task;
+      if (this.n < 10 && Num_Error > 0) {
+        this.top10NationErrors.push({ nation: province_code, error_count: Num_Error });
+        this.n += 1;
+      }
+    });
+  }
+
+  updatetop10htmlErrors() {
+    this.n = 0;
+    // console.log(this.tasks_top10_prov);
+    this.top10htmlErrors = [];
+    this.tasks_top10_html.forEach((task: any) => {
+      const { infra_object, Num_Error } = task;
+      if (this.n < 10 && Num_Error > 0) {
+        this.top10htmlErrors.push({ infra_type: infra_object, error_count: Num_Error });
         this.n += 1;
       }
     });
@@ -210,15 +267,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  isLoading: boolean = true;
+
   ngOnInit(): void {
     forkJoin([
       this.monthly_rq(),
       this.top_10_provinces_error(),
+      this.top_10_nation_error(),
       this.top_10_oj(),
       this.top_10_task(),
-      this.num_station_monitor()
+      this.num_station_monitor(),
+      this.top_10_html_error()
     ]).subscribe(() => {
       this.initCharts(); // Khởi tạo biểu đồ sau khi tất cả dữ liệu đã được tải
+      this.isLoading = false;
     });
   }
 
