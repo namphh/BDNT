@@ -46,10 +46,9 @@ class BDNT:
             self.cur.close()
         if self.connect:
             self.connect.close()
-            print("MariaDB connection is closed")
 
 # Initialize BDNT instance without credentials initially
-bdnt_instance = BDNT("", "", "", "", "")
+bdnt_instance = BDNT("root", "r00tdb", "10.254.139.26", "8094", "vcvp-v4")
 
 @app.post("/connect_db")
 async def connect_db(
@@ -104,6 +103,97 @@ async def top_10_provinces_errors():
         results.append({
             "station_code": station_code,
             "Num_Error": Num_Error
+        })
+    
+    bdnt_instance.disconnect_SQL()
+
+    response = {
+        "data": results,
+        "msg": "success",
+        "code": 200
+    }
+
+    return JSONResponse(content=response)
+
+@app.get("/top_10_nation_errors")
+async def top_10_nation_errors():
+
+    bdnt_instance.connect_SQL()
+
+    query = '''
+    SELECT 
+    R.nation_code,
+    R.request_id
+    FROM 
+        requests_info R
+    JOIN 
+        tasks_result T ON R.request_id = T.request_id
+    WHERE 
+        R.request_id IN (
+            SELECT request_id 
+            FROM tasks_result 
+            GROUP BY request_id 
+            HAVING MIN(result) = 0
+        )
+    '''
+    bdnt_instance.cur.execute(query)
+    results = []
+    my_dict  = {
+    }
+    for (nation_code, request_id) in bdnt_instance.cur:
+        if nation_code[:3] in my_dict:
+            my_dict[nation_code[:3]] += 1 
+        else:
+            my_dict[nation_code[:3]] = 1
+    top_10_provinces = sorted(my_dict.items(), key=lambda x: x[1], reverse=True)[:10]
+    for province, value in top_10_provinces:
+        results.append({
+            "province_code": province,
+            "Num_Error": value
+        })
+    bdnt_instance.disconnect_SQL()
+
+    response = {
+        "data": results,
+        "msg": "success",
+        "code": 200
+    }
+
+    return JSONResponse(content=response)
+
+@app.get("/top_10_html_errors")
+async def top_10_html_errors():
+
+    bdnt_instance.connect_SQL()
+
+    query = '''
+    SELECT
+	H.infra_object,
+    COUNT(R.request_id) AS Num_Fail
+    FROM 
+        requests_info R
+    JOIN 
+        tasks_result T ON R.request_id = T.request_id
+    JOIN 
+    	  html H ON H.object_station_name = R.object_station_name
+    WHERE 
+        R.request_id IN (
+            SELECT request_id 
+            FROM tasks_result 
+            GROUP BY request_id 
+            HAVING MIN(result) = 0
+        )
+    GROUP BY H.infra_object
+    ORDER BY Num_Fail
+    LIMIT 10
+    '''
+    bdnt_instance.cur.execute(query)
+
+    results = []
+    for (infra_object, Num_Fail) in bdnt_instance.cur:
+        results.append({
+            "infra_object": infra_object,
+            "Num_Error": Num_Fail
         })
     
     bdnt_instance.disconnect_SQL()
@@ -387,8 +477,6 @@ async def html_object():
     query = '''
     SELECT distinct(h.infra_object)
     FROM html h
-    JOIN tasks_result t ON h.task_code = t.task_code
-    JOIN requests_info r ON r.request_id = t.request_id
     '''
     bdnt_instance.cur.execute(query)
 
@@ -416,8 +504,6 @@ async def html_type():
     query = '''
     SELECT distinct(h.infra_type)
     FROM html h
-    JOIN tasks_result t ON h.task_code = t.task_code
-    JOIN requests_info r ON r.request_id = t.request_id
     '''
     bdnt_instance.cur.execute(query)
 
@@ -445,8 +531,6 @@ async def object_station_name():
     query = '''
     SELECT distinct(h.object_station_name)
     FROM html h
-    JOIN tasks_result t ON h.task_code = t.task_code
-    JOIN requests_info r ON r.request_id = t.request_id
     '''
     bdnt_instance.cur.execute(query)
 
@@ -474,8 +558,6 @@ async def task_code():
     query = '''
     SELECT distinct(h.task_name)
     FROM html h
-    JOIN tasks_result t ON h.task_code = t.task_code
-    JOIN requests_info r ON r.request_id = t.request_id
     '''
     bdnt_instance.cur.execute(query)
 
@@ -502,9 +584,7 @@ async def station_code():
 
     query = '''
     SELECT distinct(r.station_code)
-    FROM html h
-    JOIN tasks_result t ON h.task_code = t.task_code
-    JOIN requests_info r ON r.request_id = t.request_id
+    FROM requests_info r
     ORDER BY r.station_code ASC
     '''
     bdnt_instance.cur.execute(query)
@@ -548,10 +628,6 @@ async def query_all_html(
         h.task_name
     FROM 
         html h
-    JOIN 
-        tasks_result t ON h.task_code = t.task_code
-    JOIN 
-        requests_info r ON r.request_id = t.request_id
     WHERE
         (%s IS NULL OR h.infra_type = %s) AND
         (%s IS NULL OR h.infra_object = %s) AND
@@ -609,9 +685,10 @@ async def query_all(
     time = None if time == "isempty" else time
     result = None if result == "isempty" else result
     acc = None if acc == "isempty" else acc
+    
 
     bdnt_instance.connect_SQL()
-    
+
     query = '''
     SELECT 
         h.infra_type, 
@@ -663,7 +740,7 @@ async def query_all(
     for (infra_type, infra_object, object_station_name, request_id, task_code, task_name, station_code, created_at, result, confidence_score, urls) in bdnt_instance.cur:
         # print(created_at.isoformat().split("T")[0])
         result = 'Pass' if result == 1 else 'Fail'
-        if confidence_score == 0:
+        if confidence_score == 0 or confidence_score == 100:
             confidence_score = '100%'
         else:
             confidence_score = f"{round(confidence_score, 2)}%"
@@ -732,27 +809,59 @@ def get_results(
     request_id: str = Form(None), 
     task_code: str = Form(None), 
 ):
-    print(request_id, task_code)
+    # print(request_id, task_code)
     url = "http://10.254.139.26:8091/api/icms/result"
     
     # Parameters for the request
     payload = {
-        'request_id': request_id,
-        'password': task_code,
+        'request_id': int(request_id),
+        'task_code': task_code,
     }
 
 
     # Make the POST request (ignoring SSL certificate warnings)
-    response = requests.post(url, data=payload, verify=False)
-
+    response = requests.post(url, json=payload)
+    # images = response.json()["images"]
+    # print(response.keys())
     # Check for successful response
-    if response.images:
-        results = response.images
+    if response.json()["images"]:
+        results = response.json()["images"]
     else:
         results = ''
 
     response = {
-        "status_code": results,
+        "images": results,
+        "msg": "success",
+        "code": 200
+    }
+
+    return JSONResponse(content=response)
+
+@app.post("/get_origin")
+def get_origin(
+    request_id: str = Form(None), 
+):
+    # print(request_id, task_code)
+    
+    url_new = "http://10.254.139.26:8091/api/icms/result/" + request_id
+    # Parameters for the request
+    payload = {
+        
+    }
+
+
+    # Make the POST request (ignoring SSL certificate warnings)
+    response = requests.post(url_new, json=payload)
+    # images = response.json()["images"]
+    # print(response.keys())
+    # Check for successful response
+    if response.json()["images"]:
+        results = response.json()["images"]
+    else:
+        results = ''
+
+    response = {
+        "images": results,
         "msg": "success",
         "code": 200
     }
