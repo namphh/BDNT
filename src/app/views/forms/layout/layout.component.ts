@@ -193,38 +193,61 @@ export class LayoutComponent {
     // Define table headers
 
     const headers = [
-      ['Infra Type', 'Infra Object', 'Object Station Name', 'Request ID', 'Task Name', 'Task ID', 'Station ID', 'Result', 'Time', 'Reliability']
+      ['Loại', 'Đối tượng', 'Đối tượng ảnh chụp', 'Mã yêu cầu', 'Công việc', 'Mã công việc', 'Mã Trạm', 'Kết quả', 'Thời gian', 'Độ tin cậy']
     ];
 
-    // Transform and add data rows
-    const data = this.List_HTML.html_type.map((_, i) => [
-      this.List_HTML.html_type[i], 
-      this.List_HTML.html_object[i], 
-      this.List_HTML.object_station[i], 
-      this.List_HTML.request_id[i], 
-      this.List_HTML.task_code[i], 
-      this.List_HTML.task_ID[i],
-      this.List_HTML.station_code[i], 
-      this.List_HTML.result[i], 
-      this.List_HTML.created_at[i], 
-      this.List_HTML.confidence_score[i]
-    ]);
+    // Ensure correct typing for List_HTML elements
+  const data = this.List_HTML.html_type.map((_: any, i: number) => ({
+    infraType: this.List_HTML.html_type[i] as string, 
+    infraObject: this.List_HTML.html_object[i] as string, 
+    objectStation: this.List_HTML.object_station[i] as string, 
+    requestId: this.List_HTML.request_id[i] as string, 
+    taskCode: this.List_HTML.task_code[i] as string, 
+    taskID: this.List_HTML.task_ID[i] as string,
+    stationCode: this.List_HTML.station_code[i] as string, 
+    result: this.List_HTML.result[i] as string, 
+    date: new Date(this.List_HTML.created_at[i] as string), // Convert to Date object
+    confidenceScore: this.List_HTML.confidence_score[i] as number
+  }));
 
-    // Combine headers and data
-    const worksheetData = headers.concat(data);
+  // Sort data first by Date (ascending) then by Station ID (alphabetical)
+  data.sort((a, b) => {
+    const dateComparison = a.date.getTime() - b.date.getTime(); // Correct date comparison
+    if (dateComparison !== 0) {
+      return dateComparison; // Sort by date first
+    }
+    return a.stationCode.localeCompare(b.stationCode); // Sort alphabetically by stationCode if date is the same
+  });
 
-    // Create a worksheet
-    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+  // Map sorted data back to array format for worksheet
+  const sortedData = data.map(item => [
+    item.infraType, 
+    item.infraObject, 
+    item.objectStation, 
+    item.requestId, 
+    item.taskCode, 
+    item.taskID, 
+    item.stationCode, 
+    item.result, 
+    item.date.toLocaleDateString('en-GB'),  // Format date as DD/MM/YYYY
+    item.confidenceScore.toString() // Convert confidenceScore to string
+  ]);
 
-    // Create a workbook and append the worksheet
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+  // Combine headers and sorted data
+  const worksheetData: string[][] = headers.concat(sortedData.map(row => row.map(item => String(item))));
 
-    // Export to Excel and download the file
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'report.xlsx');
-  }
+  // Create a worksheet
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+
+  // Create a workbook and append the worksheet
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+
+  // Export to Excel and download the file
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+  saveAs(blob, 'report.xlsx');
+}
 
 
   isLoading: boolean = false;
