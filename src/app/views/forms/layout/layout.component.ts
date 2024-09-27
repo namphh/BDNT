@@ -248,16 +248,16 @@ export class LayoutComponent {
       case '': 
           dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
           break;
-      case '1 month - now': 
+      case '1 tháng - nay': 
           dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
           break;
-      case '3 months - now':
+      case '3 tháng - nay':
           dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 3));
           break;
-      case '6 months - now':
+      case '6 tháng - nay':
           dateRange = new Date(currentDate.setMonth(currentDate.getMonth() - 6));
           break;
-      case '1 year - now':
+      case '1 năm - nay':
           dateRange = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1));
           break;
       default:
