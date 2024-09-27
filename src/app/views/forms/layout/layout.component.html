@@ -1,4 +1,3 @@
-
 <c-row>
   <c-col xs="12">
     <c-card class="mb-4">
@@ -51,12 +50,11 @@
           <c-col md="2">
             <label for="inputField6">Khoảng thời gian</label>
             <select cSelect id="inputField6">
-              <option value="1 month - now" selected>1 tháng - nay</option>
+              <option value="1 tháng - nay" selected>1 tháng - nay</option>
               <option>3 tháng - nay</option>
               <option>6 tháng - nay</option>
               <option>1 năm - nay</option>
               <option>Tất cả</option>
-
             </select>
           </c-col>
           <!-- Results Field -->
@@ -80,16 +78,14 @@
           </c-col>          
         </form>
 
-        <!-- Results Table -->
-
-
+        <!-- Hiển thị bảng kết quả hoặc spinner khi đang tải -->
         <div *ngIf="isLoading" class="spinner-container text-center">
           <c-spinner color="primary" size="sm" variant="grow"></c-spinner>
           <p>Đang tải ...</p>
         </div>
-        
+
         <div *ngIf="!isLoading">
-          <div *ngIf="List_HTML.html_type.length > 0" class="mt-4">
+          <div *ngIf="List_HTML.html_type.length > 0; else noData" class="mt-4">
             <h5>Kết quả tìm kiếm:</h5>
             <table class="table">
               <thead>
@@ -124,9 +120,15 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Thông báo "Không có dữ liệu" chỉ sau khi nút "Xuất báo cáo" đã được nhấn -->
+          <ng-template #noData>
+            <div *ngIf="isSubmitted" class="text-center mt-4">
+              <h5>Không có dữ liệu</h5>
+            </div>
+          </ng-template>
         </div>
       </c-card-body>
     </c-card>
   </c-col>
 </c-row>
-
