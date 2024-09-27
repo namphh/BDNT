@@ -418,10 +418,23 @@ async def top_10_object_station_errors():
     LIMIT 10
     '''
     bdnt_instance.cur.execute(query)
-
+    True_label = {
+        "ac mat truoc": "AC mặt trước",
+        "ac ben trong": "AC bên trong",
+        "rack 19": "Rack 19" ,
+        "mong co 1 hanh lang mong": "Móng co hành lang móng",
+        "mong co 1 moc co": "Móng co móc có",
+        "mong cot day co tong quan": "Móng cột tổng quan",
+        "dc dong": "DC đóng",
+        "dc mo": "DC mở",
+        "nha xay san pm": "Nhà xây sàn phòng máy",
+        "ats": "ATS"
+    }
     results = []
     for (object_station_name, Num_Pass) in bdnt_instance.cur:
         object_station_name = object_station_name.replace('_', ' ')
+        if object_station_name in True_label:
+            object_station_name = True_label[object_station_name]
         results.append({
             "object_station_name": object_station_name,
             "Num_Pass": Num_Pass
@@ -619,6 +632,19 @@ async def query_all_html(
     object_station = None
     problem = None
 
+    True_label = {
+        "ac mat truoc": "AC mặt trước",
+        "ac ben trong": "AC bên trong",
+        "rack 19": "Rack 19" ,
+        "mong co 1 hanh lang mong": "Móng co hành lang móng",
+        "mong co 1 moc co": "Móng co móc có",
+        "mong cot day co tong quan": "Móng cột tổng quan",
+        "dc dong": "DC đóng",
+        "dc mo": "DC mở",
+        "nha xay san pm": "Nhà xây sàn phòng máy",
+        "ats": "ATS"
+    }
+
     bdnt_instance.connect_SQL()
     
     query = '''
@@ -648,6 +674,9 @@ async def query_all_html(
     # Lấy kết quả từ truy vấn
     results = []
     for (infra_type, infra_object, object_station_name, problem) in bdnt_instance.cur:
+        object_station_name = object_station_name.replace('_', ' ')
+        if object_station_name in True_label:
+            object_station_name = True_label[object_station_name]
         results.append({
             "html_type": infra_type,
             "html_object": infra_object,
@@ -686,7 +715,18 @@ async def query_all(
     time = None if time == "isempty" else time
     result = None if result == "isempty" else result
     acc = None if acc == "isempty" else acc
-    
+    True_label = {
+        "ac mat truoc": "AC mặt trước",
+        "ac ben trong": "AC bên trong",
+        "rack 19": "Rack 19" ,
+        "mong co 1 hanh lang mong": "Móng co hành lang móng",
+        "mong co 1 moc co": "Móng co móc có",
+        "mong cot day co tong quan": "Móng cột tổng quan",
+        "dc dong": "DC đóng",
+        "dc mo": "DC mở",
+        "nha xay san pm": "Nhà xây sàn phòng máy",
+        "ats": "ATS"
+    }
     bdnt_instance.connect_SQL()
 
     query = '''
@@ -738,6 +778,11 @@ async def query_all(
     # Lấy kết quả từ truy vấn
     results = []
     for (infra_type, infra_object, object_station_name, request_id, task_code, task_name, station_code, created_at, result, confidence_score, urls) in bdnt_instance.cur:
+
+        object_station_name = object_station_name.replace('_', ' ')
+        if object_station_name in True_label:
+            object_station_name = True_label[object_station_name]
+
         # print(created_at.isoformat().split("T")[0])
         result = 'Pass' if result == 1 else 'Fail'
         if confidence_score == 0 or confidence_score == 100:
