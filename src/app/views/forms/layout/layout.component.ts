@@ -65,7 +65,8 @@ export class LayoutComponent {
   dataset: { [key: string]: any[] } = {}; // Object type for dataset
   transformedData: any[] = []; // To hold the transformed data
   filteredData: any[] = []; // To hold the filtered data
-
+  isSubmitted = false;
+  
   options = {
     'Loại hạ tầng mạng lưới': [''],
     'Đối tượng hạ tầng mạng lưới': [''],
@@ -228,6 +229,7 @@ export class LayoutComponent {
 
   isLoading: boolean = false;
   onSubmit(event: Event) {
+    this.isSubmitted = true;
     this.isLoading = true;
     event.preventDefault();
     this.resetListHTML();
@@ -274,9 +276,10 @@ export class LayoutComponent {
     body.append("problem", inputField4 === 'Tất cả' ? 'isempty' : inputField4 || 'isempty');
     body.append("station_code", inputField5 === 'Tất cả' ? 'isempty' : inputField5 || 'isempty');
     body.append("time", inputField6 === 'Tất cả' ? 'isempty' : this.formatDate(dateRange) || 'isempty'); // Định dạng ngày
+    // console.log(this.formatDate(dateRange))
     body.append("result", inputField7 === 'Tất cả' ? 'isempty' : (inputField7 === 'Pass' ? '1' : '0'));
     body.append("acc", inputField8 || 'isempty');
-    console.log(inputField1, inputField2, inputField3, inputField4, inputField5, inputField6, inputField7, inputField8)
+    // console.log(inputField1, inputField2, inputField3, inputField4, inputField5, inputField6, inputField7, inputField8)
     // Send the request
     this.query_all(body).subscribe((res: any) => {
       this.List_HTML.html_type = res.data.map((task: any) => task.html_type);
