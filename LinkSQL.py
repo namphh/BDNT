@@ -541,7 +541,18 @@ async def html_type():
 async def object_station_name():
     
     bdnt_instance.connect_SQL()
-
+    True_label = {
+        "ac mat truoc": "AC mặt trước",
+        "ac ben trong": "AC bên trong",
+        "rack 19": "Rack 19" ,
+        "mong co 1 hanh lang mong": "Móng co hành lang móng",
+        "mong co 1 moc co": "Móng co móc có",
+        "mong cot day co tong quan": "Móng cột tổng quan",
+        "dc dong": "DC đóng",
+        "dc mo": "DC mở",
+        "nha xay san pm": "Nhà xây sàn phòng máy",
+        "ats": "ATS"
+    }
     query = '''
     SELECT distinct(h.object_station_name)
     FROM html h
@@ -549,7 +560,10 @@ async def object_station_name():
     bdnt_instance.cur.execute(query)
 
     results = []
-    for (object_station_name) in bdnt_instance.cur:
+    for (object_station_name,) in bdnt_instance.cur:
+        object_station_name = object_station_name.replace('_', ' ')
+        if object_station_name in True_label:
+            object_station_name = True_label[object_station_name]
         results.append({
             "object_station_name": object_station_name
         })
@@ -706,9 +720,24 @@ async def query_all(
     result: str = Form(None), 
     acc: str = Form(None)
 ):
+    True_label_rv = {
+        "AC mặt trước": "ac mat truoc",
+        "AC bên trong": "ac ben trong",
+        "Rack 19": "rack 19",
+        "Móng co hành lang móng": "mong co 1 hanh lang mong",
+        "Móng co móc có": "mong co 1 moc co",
+        "Móng cột tổng quan": "mong cot day co tong quan",
+        "DC đóng": "dc dong",
+        "DC mở": "dc mo",
+        "Nhà xây sàn phòng máy": "nha xay san pm", 
+        "ATS": "ats" 
+    }
     # Chuyển đổi chuỗi trống thành None
     html_type = None if html_type == "isempty" else html_type
     html_object = None if html_object == "isempty" else html_object
+    if object_station in True_label_rv:
+        object_station = True_label_rv[object_station]
+    object_station = object_station.replace(' ', '_')
     object_station = None if object_station == "isempty" else object_station
     problem = None if problem == "isempty" else problem
     station_code = None if station_code == "isempty" else station_code
