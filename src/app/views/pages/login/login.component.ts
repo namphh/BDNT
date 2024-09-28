@@ -1,14 +1,36 @@
-import { Component } from '@angular/core';
-import { NgStyle, CommonModule } from '@angular/common';
-import { IconDirective } from '@coreui/icons-angular';
-import { ContainerComponent, RowComponent, ColComponent, CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
+import { CommonModule, NgStyle } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { SessionStorageService } from 'src/services/session-storage.service';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import {
+  ButtonDirective,
+  CardBodyComponent,
+  CardComponent,
+  CardGroupComponent,
+  ColComponent,
+  ContainerComponent,
+  FormControlDirective,
+  FormDirective,
+  FormSelectDirective,
+  InputGroupComponent,
+  InputGroupTextDirective,
+  RowComponent,
+  TextColorDirective,
+} from '@coreui/angular';
+import { IconDirective } from '@coreui/icons-angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppConfig } from 'src/app/app-config';
+import { SessionStorageService } from 'src/services/session-storage.service';
+import { CommonTranslateService } from '@services/common-translate.service';
+import { LanguageEnum } from '@enums/language.enum';
 
 @Component({
   selector: 'app-login',
@@ -32,16 +54,18 @@ import { AppConfig } from 'src/app/app-config';
     NgStyle,
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule
-  ]
+    FormsModule,
+    TranslateModule,
+    FormSelectDirective,
+  ],
 })
 export class LoginComponent {
-
+  private _commonTranslateService = inject(CommonTranslateService);
   constructor(
     private router: Router,
     private sessionService: SessionStorageService,
     private http: HttpClient
-  ) { }
+  ) {}
 
   signInForm = new FormGroup({
     username: new FormControl(''),
@@ -51,8 +75,9 @@ export class LoginComponent {
   isLoading: boolean = false;
   messageLoginResponse: string = '* ';
   tasks: any = [];
+  language: LanguageEnum = LanguageEnum.EN;
 
-  private APIURL = `${AppConfig.server}/`;  // Sử dụng server URL
+  private APIURL = `${AppConfig.server}/`; // Sử dụng server URL
 
   // Method to make the POST request with headers
   sso(username: string, password: string): Observable<any> {
@@ -60,14 +85,14 @@ export class LoginComponent {
     const urlWithParams = `${this.APIURL}` + 'login';
     let body = new FormData();
     // Set up the conditions to allow 'all' if the header is selected
-    body.append("username", username);
-    body.append("password", password);
+    body.append('username', username);
+    body.append('password', password);
     return this.http.post(urlWithParams, body).pipe(
       tap((res: any) => {
         // Assuming res has a status_code, adjust if needed
         this.tasks = res.status_code;
-        console.log(this.tasks)
-        if (this.tasks ===201) {
+        console.log(this.tasks);
+        if (this.tasks === 201) {
           this.sessionService.saveData('jwt_token', 'your_generated_token');
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -81,6 +106,8 @@ export class LoginComponent {
 
   // Method to trigger login
   login() {
+    console.log(this.APIURL);
+
     this.isLoading = true;
     this.isShowNotify = false;
 
@@ -89,5 +116,10 @@ export class LoginComponent {
     const password = this.signInForm.value.password ?? '';
 
     this.sso(username, password).subscribe(); // Pass username and password directly
+  }
+
+  handleSelectLanguage(value: any) {
+    this.language = value.target.value;
+    this._commonTranslateService.setLang(this.language);
   }
 }

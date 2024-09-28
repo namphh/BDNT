@@ -1,0 +1,6 @@
+{
+  "login": {
+    "title": "Đăng nhập",
+    "description": "Đăng nhập vào hệ thống với tài khoản của bạn: {{username}}"
+  }
+}

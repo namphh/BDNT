@@ -6,8 +6,14 @@
           <c-card class="p-4">
             <c-card-body>
               <form cForm [formGroup]="signInForm" (submit)="login()">
-                <h1>Login</h1>
-                <p class="text-medium-emphasis">Sign In to your account</p>
+                <h1>{{ "login.title" | translate }}</h1>
+                <p class="text-medium-emphasis">
+                  {{
+                    "login.description"
+                      | translate
+                        : { username: signInForm.get("username")?.value }
+                  }}
+                </p>
 
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
@@ -18,7 +24,7 @@
                     cFormControl
                     placeholder="Username"
                     formControlName="username"
-                    />
+                  />
                 </c-input-group>
 
                 <c-input-group class="mb-4">
@@ -34,7 +40,9 @@
                   />
                 </c-input-group>
                 <div class="mb-4">
-                  <span style="color: brown;" *ngIf="isShowNotify">{{messageLoginResponse}}</span>
+                  <span style="color: brown" *ngIf="isShowNotify">{{
+                    messageLoginResponse
+                  }}</span>
                 </div>
 
                 <c-row>
@@ -48,6 +56,19 @@
                     <button cButton class="px-0" color="link">
                       Forgot password?
                     </button>
+                  </c-col>
+
+                  <!-- TO DO: delete, section just for test  -->
+                  <c-col xs="12">
+                    <select
+                      cSelect
+                      id="inputGroupSelect01"
+                      [value]="language"
+                      (change)="handleSelectLanguage($event)"
+                    >
+                      <option value="vi">vi</option>
+                      <option value="en">en</option>
+                    </select>
                   </c-col>
                 </c-row>
               </form>
