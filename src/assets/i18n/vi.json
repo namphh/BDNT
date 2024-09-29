@@ -1,6 +1,7 @@
 {
   "login": {
     "title": "Đăng nhập",
-    "description": "Đăng nhập vào hệ thống với tài khoản của bạn: {{username}}"
+    "description": "Đăng nhập vào hệ thống với tài khoản của bạn: {{username}}",
+    "login.button": "Đăng nhập ngay"
   }
 }

@@ -9,9 +9,7 @@
                 <h1>{{ "login.title" | translate }}</h1>
                 <p class="text-medium-emphasis">
                   {{
-                    "login.description"
-                      | translate
-                        : { username: signInForm.get("username")?.value }
+                    "login.description"| translate : { username: signInForm.get("username")?.value }
                   }}
                 </p>
 
@@ -49,7 +47,7 @@
                   <c-col xs="6">
                     <button cButton class="px-4" color="primary" type="submit">
                       <!-- <c-spinner *ngIf="isLoading" color="info" aria-hidden="true" size="sm"></c-spinner> -->
-                      Login
+                      {{ "login.login.button" | translate }}
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">

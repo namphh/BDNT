@@ -1,1 +1,7 @@
-{ "login": { "title": "Login", "description": "Sign In to your account: {{username}}" } }
+{
+  "login": {
+    "title": "Login",
+    "description": "Sign In to your account: {{username}}",
+    "login.button": "Login now"
+  }
+}
