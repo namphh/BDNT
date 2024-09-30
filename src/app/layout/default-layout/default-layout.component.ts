@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
 import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
+  INavData,
   ShadowOnScrollDirective,
   SidebarBrandComponent,
   SidebarComponent,
@@ -17,6 +18,7 @@ import {
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
 import { navItems } from './_nav';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -50,14 +52,28 @@ function isOverflown(element: HTMLElement) {
   ]
 })
 export class DefaultLayoutComponent {
-  
-  public navItems = navItems;
+  private _translateService = inject(TranslateService)
+  private _destroyRef = inject(DestroyRef)
+  public navItems: INavData[] = [];
   constructor(private translate: TranslateService) {
-    
-    // this.navItems = navItems.map(item => {
-      
-    // })
+    const navItemNames = navItems.map((navItem) => navItem.name ?? '');
+    const navItemBadges = navItems.map((navItem) => navItem.badge?.text ?? '');
 
+    this._translateService
+      .stream([...navItemNames, ...navItemBadges])
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((res) => {
+        this.navItems = navItems.map((navItem) => ({
+          ...navItem,
+          name: navItem.name && res?.[navItem.name],
+          badge: {
+            color: navItem.badge?.color ?? '',
+            text: navItem.badge?.text
+              ? (res?.[navItem.badge?.text] as string)
+              : '',
+          },
+        }));
+      });
   }
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {

@@ -7,12 +7,12 @@ import { Subject } from 'rxjs';
 export class CommonTranslateService {
   private _translateService = inject(TranslateService);
 
-  isUpdated = new Subject()
+  constructor() {
+    this._translateService.addLangs(['en', 'vi', 'km']);
+  }
 
   setLang(lang: LanguageEnum) {
     this._translateService.use(lang);
-    localStorage.setItem("lang", lang);
-    this.isUpdated.next(true)
+    localStorage.setItem('lang', lang);
   }
-
 }

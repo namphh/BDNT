@@ -28,11 +28,10 @@ export interface IChartProps {
   providedIn: 'any'
 })
 export class DashboardChartsData {
-  private _commonTranslateService = inject(CommonTranslateService);
+  private _translateService = inject(TranslateService);
 
   constructor(private translate: TranslateService) {
-    this._commonTranslateService.isUpdated.subscribe(() => setTimeout(() => {this.initMainChart
-    }, 100))
+    this._translateService.stream('...').subscribe(() => this.initMainChart());
   }
 
   public mainChart: IChartProps = { type: 'line' };
