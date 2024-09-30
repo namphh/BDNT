@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   ChartData,
   ChartDataset,
@@ -10,6 +10,8 @@ import {
 } from 'chart.js';
 import { DeepPartial } from 'chart.js/dist/types/utils';
 import { getStyle, hexToRgba } from '@coreui/utils';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
+import { CommonTranslateService } from '@services/common-translate.service';
 
 export interface IChartProps {
   data?: ChartData;
@@ -26,8 +28,11 @@ export interface IChartProps {
   providedIn: 'any'
 })
 export class DashboardChartsData {
-  constructor() {
-    this.initMainChart();
+  private _commonTranslateService = inject(CommonTranslateService);
+
+  constructor(private translate: TranslateService) {
+    this._commonTranslateService.isUpdated.subscribe(() => setTimeout(() => {this.initMainChart
+    }, 100))
   }
 
   public mainChart: IChartProps = { type: 'line' };
@@ -46,7 +51,7 @@ export class DashboardChartsData {
     const datasets: ChartDataset[] = [
       {
         data,
-        label: 'Số lượng',
+        label: this.translate.instant('CHART.LABELS.QUANTITY'),
         backgroundColor: redColor,  // Fill the bars with red color
         borderColor: redColor,      // Border red color (optional)
         borderWidth: 1,             // Optional: Border thickness of the bars
@@ -55,8 +60,18 @@ export class DashboardChartsData {
     ];
   
     const labels = [
-      'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7',
-      'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+      this.translate.instant('CHART.LABELS.JAN'), // Tháng 1
+      this.translate.instant('CHART.LABELS.FEB'), // Tháng 2
+      this.translate.instant('CHART.LABELS.MAR'), // Tháng 3
+      this.translate.instant('CHART.LABELS.APR'), // Tháng 4
+      this.translate.instant('CHART.LABELS.MAY'), // Tháng 5
+      this.translate.instant('CHART.LABELS.JUN'), // Tháng 6
+      this.translate.instant('CHART.LABELS.JUL'), // Tháng 7
+      this.translate.instant('CHART.LABELS.AUG'), // Tháng 8
+      this.translate.instant('CHART.LABELS.SEP'), // Tháng 9
+      this.translate.instant('CHART.LABELS.OCT'), // Tháng 10
+      this.translate.instant('CHART.LABELS.NOV'), // Tháng 11
+      this.translate.instant('CHART.LABELS.DEC')  // Tháng 12
     ];
   
     const scales = this.getScales();

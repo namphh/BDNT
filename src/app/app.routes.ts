@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
     data: {
       title: 'Home'
     },

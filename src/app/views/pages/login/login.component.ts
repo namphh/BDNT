@@ -107,7 +107,7 @@ export class LoginComponent {
   // Method to trigger login
   login() {
     console.log(this.APIURL);
-
+    // this.router.navigateByUrl('/dashboard');
     this.isLoading = true;
     this.isShowNotify = false;
 

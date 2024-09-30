@@ -1,0 +1,176 @@
+{
+  "login": {
+    "title": "ចូល",
+    "description": "ចូលក្នុងគណនីរបស់អ្នក: {{username}}",
+    "login.button": "ចូលឥឡូវនេះ"
+  },
+  "HOME": "ទំព័រដើម",
+  "SETTINGS": "ការកំណត់",
+  "LOGOUT": "ចាកចេញ",
+  "WELCOME": "សូមស្វាគមន៍",
+  "LIGHT_MODE": "ម៉ូដពន្លឺ",
+  "DARK_MODE": "ម៉ូដងងឹត",
+  "DASHBOARD": {
+    "LOADING": "កំពុងផ្ទុក ...",
+    "TITLE": "ទិដ្ឋភាពទូទៅ",
+    "CARDS": {
+      "CARD_1": {
+        "TITLE": "ចំនួនសំណើស៊ាំមតិ",
+        "CHART_LABEL": "ក្រាហ្វសម្រាប់ចំនួនមកដល់ ១"
+      },
+      "CARD_2": {
+        "TITLE": "ចំនួនស្ថានីយ៍ស៊ាំមតិ",
+        "CHART_LABEL": "ក្រាហ្វសម្រាប់ចំនួនមកដល់ ២"
+      },
+      "CARD_3": {
+        "TITLE": "ចំនួនសំណើដែលបានអនុម័ត",
+        "CHART_LABEL": "ក្រាហ្វសម្រាប់ចំនួនមកដល់ ៣"
+      },
+      "CARD_4": {
+        "TITLE": "ចំនួនសំណើកំហុស",
+        "CHART_LABEL": "ក្រាហ្វសម្រាប់ចំនួនមកដល់ ៤"
+      }
+    },
+    "TABLES": {
+      "MONTHLY_REQUESTS": {
+        "TITLE": "ចំនួនសំណើតាមខែ",
+        "HEADERS": {
+          "MONTH": "ខែ",
+          "APPROVED": "ចំនួនសំណើដែលបានអនុម័ត",
+          "REJECTED": "ចំនួនសំណើកំហុស",
+          "TOTAL": "សំណើសរុប"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS": {
+        "TITLE": "១០ ទីតាំងដែលមានកំហុសច្រើនបំផុត",
+        "HEADERS": {
+          "INDEX": "លេខ",
+          "STATION_CODE": "កូដស្ថានីយ៍",
+          "ERROR_COUNT": "ចំនួនកំហុស"
+        }
+      },
+      "TOP_10_OBJECT_ERRORS": {
+        "TITLE": "១០ វត្ថុដែលចាប់បានមានកំហុស",
+        "HEADERS": {
+          "INDEX": "លេខ",
+          "OBJECT": "វត្ថុដែលចាប់បាន",
+          "ERROR_COUNT": "ចំនួនកំហុស"
+        }
+      },
+      "TOP_10_TASK_ERRORS": {
+        "TITLE": "១០ ការងារដែលមានកំហុសច្រើនបំផុត",
+        "HEADERS": {
+          "INDEX": "លេខ",
+          "TASK": "ការងារ",
+          "ERROR_COUNT": "ចំនួនកំហុស"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS_BY_NATION": {
+        "TITLE": "១០ ខេត្តដែលមានកំហុសច្រើនបំផុត",
+        "HEADERS": {
+          "INDEX": "លេខ",
+          "PROVINCE_CODE": "កូដខេត្ត",
+          "ERROR_COUNT": "ចំនួនកំហុស"
+        }
+      },
+      "TOP_10_INFRA_ERRORS": {
+        "TITLE": "១០ វត្ថុបណ្តាញមូលដ្ឋានដែលអាក្រក់បំផុត",
+        "HEADERS": {
+          "INDEX": "លេខ",
+          "INFRA_TYPE": "វត្ថុ",
+          "ERROR_COUNT": "ចំនួនកំហុស"
+        }
+      }
+    }
+  },
+  "FILTERS": {
+    "ALL": "ទាំងអស់"
+  },
+  "TABS": {
+    "TITLE": "បញ្ជីអ៊ីនហ្វ្រាស្ត្រ",
+    "COLUMNS": {
+      "TYPE": "ប្រភេទ",
+      "OBJECT": "វត្ថុ",
+      "OBJECT_PHOTO": "រូបថតវត្ថុ",
+      "WORK": "ការងារ"
+    },
+    "FILTERS": {
+      "ALL": "ទាំងអស់"
+    }
+  },
+  "LAYOUT": {
+    "NO_DATA": "គ្មានទិន្នន័យ",
+    "LOADING": "កំពុងផ្ទុក ...",
+    "VIEW": "ពិនិត្យ",
+    "TIME": {
+      "OPTION_1": "1 ខែ - ឥឡូវនេះ",
+      "OPTION_2": "3 ខែ - ឥឡូវនេះ",
+      "OPTION_3": "6 ខែ - ឥឡូវនេះ",
+      "OPTION_4": "1 ឆ្នាំ - ឥឡូវនេះ",
+      "OPTION_5": "ទាំងអស់។"
+      },
+    "RESULTS": "លទ្ធផល",
+    "TITLE": "ស្វែងរក",
+    "ALL": "ទាំងអស់។",
+    "HEADER": {
+      "CHANGE_LANGUAGE": "ផ្លាស់ប្តូរភាសា"
+    },
+    "BUTTON": {
+      "EXPORT_REPORT": "នាំចេញរបាយការណ៍",
+      "EXPORT_EXCEL": "នាំចេញExcel"
+    },
+    "LABELS": {
+      "LOAI_HTML": "ប្រភេទ",
+      "DOI_TUONG_HTML": "វត្ថុ",
+      "DOI_TUONG_ANH": "វត្ថុរូបថត",
+      "DAU_VIEC": "ការងារ",
+      "MA_TRAM": "កូដស្ថានីយ៍",
+      "KHOANG_THOI_GIAN": "ពេលវេលា",
+      "KET_QUA": "លទ្ធផល",
+      "DO_CHINH_XAC": "តម្លៃត្រឹមត្រូវ",
+      "THOI_GIAN_CHUP": "ពេលវេលាចាប់",
+      "CHI_TIET": "លម្អិត"
+    }
+  },
+  "CARD": {
+    "IMAGE_1": "រូបថតដើម",
+    "IMAGE_2": "រូបថតលទ្ធផល",
+    "D1": "រូបថតមិនមានទេ។",
+    "D2": "រូបថតមិនមានទេ។",
+    "LABELS": {
+      "LOAI_HTML": "ប្រភេទ",
+      "DOI_TUONG_HTML": "វត្ថុ",
+      "DOI_TUONG_ANH": "វត្ថុរូបថត",
+      "DAU_VIEC": "ការងារ",
+      "MA_TRAM": "កូដស្ថានីយ៍",
+      "KHOANG_THOI_GIAN": "ពេលវេលា",
+      "KET_QUA": "លទ្ធផល",
+      "DO_CHINH_XAC": "តម្លៃត្រឹមត្រូវ",
+      "THOI_GIAN_CHUP": "ពេលវេលាចាប់",
+      "CHI_TIET": "លម្អិត"
+    }
+  },
+  "MAIN": {
+    "TITLE": "ទិដ្ឋភាពទូទៅ",
+    "LIST": "បញ្ជីរចនាសម្ព័ន្ធបណ្តាញ",
+    "NEW": "ថ្មី",
+    "SEARCH": "ស្វែងរក"
+  },
+  "CHART": {
+    "LABELS": {
+      "QUANTITY": "ចំនួន",
+      "JAN": "មករា",
+      "FEB": "កុម្ភៈ",
+      "MAR": "មិនា",
+      "APR": "មេសា",
+      "MAY": "ឧសភា",
+      "JUN": "មិថុនា",
+      "JUL": "កក្កដា",
+      "AUG": "សីហា",
+      "SEP": "កញ្ញា",
+      "OCT": "តុលា",
+      "NOV": "វិច្ឆិកា",
+      "DEC": "ធ្នូ"
+    }
+  }
+}

@@ -1,7 +1,176 @@
 {
   "login": {
-    "title": "Đăng nhập",
-    "description": "Đăng nhập vào hệ thống với tài khoản của bạn: {{username}}",
+    "title": "Đăng Nhập",
+    "description": "Đăng nhập vào tài khoản của bạn: {{username}}",
     "login.button": "Đăng nhập ngay"
+  },
+  "HOME": "Trang Chủ",
+  "SETTINGS": "Cài Đặt",
+  "LOGOUT": "Đăng Xuất",
+  "WELCOME": "Chào Mừng",
+  "LIGHT_MODE": "Chế Độ Sáng",
+  "DARK_MODE": "Chế Độ Tối",
+  "DASHBOARD": {
+    "LOADING": "Đang tải ...",
+    "TITLE": "TỔNG QUAN",
+    "CARDS": {
+      "CARD_1": {
+        "TITLE": "Số lượng yêu cầu giám sát",
+        "CHART_LABEL": "Bar chart for visits 1"
+      },
+      "CARD_2": {
+        "TITLE": "Số lượng trạm giám sát",
+        "CHART_LABEL": "Bar chart for visits 2"
+      },
+      "CARD_3": {
+        "TITLE": "Số lượng yêu cầu đạt",
+        "CHART_LABEL": "Bar chart for visits 3"
+      },
+      "CARD_4": {
+        "TITLE": "Số lượng yêu cầu lỗi",
+        "CHART_LABEL": "Bar chart for visits 4"
+      }
+    },
+    "TABLES": {
+      "MONTHLY_REQUESTS": {
+        "TITLE": "Số lượng yêu cầu theo tháng",
+        "HEADERS": {
+          "MONTH": "Tháng",
+          "APPROVED": "Số yêu cầu đạt",
+          "REJECTED": "Số yêu cầu lỗi",
+          "TOTAL": "Số yêu cầu tổng"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS": {
+        "TITLE": "Top 10 trạm phát sinh nhiều lỗi nhất",
+        "HEADERS": {
+          "INDEX": "STT",
+          "STATION_CODE": "Mã Trạm",
+          "ERROR_COUNT": "Số lỗi"
+        }
+      },
+      "TOP_10_OBJECT_ERRORS": {
+        "TITLE": "Top 10 đối tượng ảnh chụp phát sinh lỗi",
+        "HEADERS": {
+          "INDEX": "STT",
+          "OBJECT": "Đối tượng ảnh chụp",
+          "ERROR_COUNT": "Số lỗi"
+        }
+      },
+      "TOP_10_TASK_ERRORS": {
+        "TITLE": "Top 10 đầu việc phát sinh nhiều lỗi nhất",
+        "HEADERS": {
+          "INDEX": "STT",
+          "TASK": "Đầu việc",
+          "ERROR_COUNT": "Số lỗi"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS_BY_NATION": {
+        "TITLE": "Top 10 tỉnh phát sinh nhiều lỗi nhất",
+        "HEADERS": {
+          "INDEX": "STT",
+          "PROVINCE_CODE": "Mã Tỉnh",
+          "ERROR_COUNT": "Số lỗi"
+        }
+      },
+      "TOP_10_INFRA_ERRORS": {
+        "TITLE": "Top 10 đối tượng Hạ Tầng Mạng Lưới kém nhất",
+        "HEADERS": {
+          "INDEX": "STT",
+          "INFRA_TYPE": "Đối tượng",
+          "ERROR_COUNT": "Số Lỗi"
+        }
+      }
+    }
+  },
+  "TABS": {
+    "RESULTS": "Kết quả",
+    "TITLE": "Tìm kiếm",
+    "COLUMNS": {
+      "TYPE": "Loại",
+      "OBJECT": "Đối Tượng",
+      "OBJECT_PHOTO": "Đối Tượng Ảnh Chụp",
+      "WORK": "Công Việc"
+    },
+    "FILTERS": {
+      "ALL": "Tất Cả"
+    }
+  },
+
+  "LAYOUT": {
+    "NO_DATA": "Không có dữ liệu",
+    "LOADING": "Đang tải ...",
+    "VIEW": "Xem",
+    "TIME": {
+      "OPTION_1": "1 tháng - nay",
+      "OPTION_2": "3 tháng - nay", 
+      "OPTION_3": "6 tháng - nay", 
+      "OPTION_4": "1 năm - nay",
+      "OPTION_5": "Tất cả"
+    },
+    "RESULTS": "Kết quả",
+    "TITLE": "Tìm kiếm",
+    "ALL": "Tất cả",
+    "HEADER": {
+      "CHANGE_LANGUAGE": "Thay đổi ngôn ngữ"
+    },
+    "BUTTON": {
+      "EXPORT_REPORT": "Xuất báo cáo",
+      "EXPORT_EXCEL": "Xuất Excel"
+    },
+    "LABELS": {
+      "LOAI_HTML": "Loại HTML",
+      "DOI_TUONG_HTML": "Đối tượng HTML",
+      "DOI_TUONG_ANH": "Đối tượng ảnh chụp",
+      "DAU_VIEC": "Đầu việc",
+      "MA_TRAM": "Mã trạm",
+      "KHOANG_THOI_GIAN": "Thời gian",
+      "KET_QUA": "Kết quả",
+      "DO_CHINH_XAC": "Độ chính xác",
+      "THOI_GIAN_CHUP": "Thời gian chụp",
+      "CHI_TIET": "Chi tiết"
+    }
+  },
+  "CARD": {
+    "IMAGE_1": "Ảnh gốc",
+    "IMAGE_2": "Ảnh kết quả",
+    "D1": "Ảnh không có sẵn",
+    "D2": "Ảnh không có sẵn",
+    "LABELS": {
+      "LOAI_HTML": "Loại HTML",
+      "DOI_TUONG_HTML": "Đối tượng HTML",
+      "DOI_TUONG_ANH": "Đối tượng ảnh chụp",
+      "DAU_VIEC": "Đầu việc",
+      "MA_TRAM": "Mã trạm",
+      "KHOANG_THOI_GIAN": "Thời gian",
+      "KET_QUA": "Kết quả",
+      "DO_CHINH_XAC": "Độ chính xác",
+      "THOI_GIAN_CHUP": "Thời gian chụp",
+      "CHI_TIET": "Chi tiết"
+    }
+  },
+  "MAIN": {
+    "TITLE": "TỔNG QUAN",
+    "LIST": "Danh Sách Hạ Tầng Mạng Lưới",
+    "NEW": "Mới",
+    "SEARCH": "Tìm kiếm"
+
+  },
+  "CHART": {
+    "LABELS": {
+      "QUANTITY": "Chất lượng",
+      "JAN": "Tháng 1",
+      "FEB": "Tháng 2",
+      "MAR": "Tháng 3",
+      "APR": "Tháng 4",
+      "MAY": "Tháng 5",
+      "JUN": "Tháng 6",
+      "JUL": "Tháng 7",
+      "AUG": "Tháng 8",
+      "SEP": "Tháng 9",
+      "OCT": "Tháng 10",
+      "NOV": "Tháng 11",
+      "DEC": "Tháng 12"
+    }
   }
 }

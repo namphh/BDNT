@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
-
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
 import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
@@ -45,12 +45,20 @@ function isOverflown(element: HTMLElement) {
     ShadowOnScrollDirective,
     ContainerComponent,
     RouterOutlet,
-    DefaultFooterComponent
+    DefaultFooterComponent,
+    TranslateModule
   ]
 })
 export class DefaultLayoutComponent {
+  
   public navItems = navItems;
+  constructor(private translate: TranslateService) {
+    
+    // this.navItems = navItems.map(item => {
+      
+    // })
 
+  }
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {
     // console.log('verticalUsed', $event.verticalUsed);

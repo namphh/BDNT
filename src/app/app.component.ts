@@ -7,6 +7,8 @@ import { delay, filter, map, tap } from 'rxjs/operators';
 import { ColorModeService } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
+import { CommonTranslateService } from '@services/common-translate.service';
+import { LanguageEnum } from '@enums/language.enum';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
 
   readonly #colorModeService = inject(ColorModeService);
   readonly #iconSetService = inject(IconSetService);
+  private _commonTranslateService = inject(CommonTranslateService);
 
   constructor() {
     this.#titleService.setTitle(this.title);
@@ -34,7 +37,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    const language = (localStorage.getItem("lang") as LanguageEnum) ?? LanguageEnum.EN
+    this._commonTranslateService.setLang(language)
     this.#router.events.pipe(
         takeUntilDestroyed(this.#destroyRef)
       ).subscribe((evt) => {

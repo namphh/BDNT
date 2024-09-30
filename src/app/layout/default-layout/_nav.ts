@@ -2,27 +2,25 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Tổng Quan',
+    name: 'MAIN.TITLE', // Key dịch
     url: '/dashboard',
     iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
-      text: 'Mới'
+      text: 'MAIN.NEW' // Key dịch
     }
   },
   {
-    name: 'Hạ Tầng Mạng Lưới',
+    name: 'MAIN.LIST', // Key dịch
     url: '/base/tabs',
-    // iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
       text: ''
     }
   },
   {
-    name: 'Tìm Kiếm',
+    name: 'MAIN.SEARCH', // Key dịch
     url: '/forms/layout',
-    // iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
       text: ''

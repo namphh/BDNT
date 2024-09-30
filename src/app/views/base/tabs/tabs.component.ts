@@ -14,6 +14,7 @@ import { DataService } from 'src/app/data.service';
 import { Observable, forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppConfig } from 'src/app/app-config';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
 
 interface TableData {
   loaiHTML: string;
@@ -42,7 +43,8 @@ interface FilterOptions {
     CardHeaderComponent,
     ColComponent,
     RowComponent,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule
   ]
 })
 export class AppTabsComponent {
@@ -64,7 +66,12 @@ export class AppTabsComponent {
     dauViec: []
   };
 
-  constructor(private http: HttpClient, private router: Router, private dataService: DataService) {}
+  constructor(private http: HttpClient, private router: Router, private dataService: DataService, private translate: TranslateService) {
+    // Set the default language to English
+    this.translate.setDefaultLang('en');
+  }
+
+  
 
   ngOnInit(): void {
     forkJoin([this.query_all()]).subscribe(() => {
@@ -119,7 +126,11 @@ export class AppTabsComponent {
 
   // Get unique values from the filtered data for each column
   private getUniqueValues(key: keyof TableData, data: TableData[]): string[] {
-    const values = data.map(item => item[key]);
-    return Array.from(new Set(values));  // Return unique values only
+    return [...new Set(data.map(item => item[key]))];
+  }
+
+  // Language switcher function
+  switchLanguage(language: string) {
+    this.translate.use(language);
   }
 }

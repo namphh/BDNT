@@ -13,6 +13,8 @@ import { saveAs } from 'file-saver';
 import { DataService } from '../../../data.service'
 import { AppConfig } from 'src/app/app-config';
 import { SpinnerModule } from '@coreui/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
+
 
 @Component({
   selector: 'app-layout',
@@ -42,7 +44,8 @@ import { SpinnerModule } from '@coreui/angular';
     InputGroupTextDirective, 
     CommonModule, 
     HttpClientModule,
-    SpinnerModule
+    SpinnerModule,
+    TranslateModule
   ]
 })
 export class LayoutComponent {
@@ -75,7 +78,14 @@ export class LayoutComponent {
     'Mã trạm': ['']
   };
 
-  constructor(private http: HttpClient, private router: Router, private dataService: DataService) {}
+  constructor(private http: HttpClient, private router: Router, private dataService: DataService, private translate: TranslateService) {
+    // Set the default language to English
+    this.translate.setDefaultLang('en');
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 
   navigateToCard(listHTML: any, index: number) {
     const queryParams = {
@@ -85,6 +95,7 @@ export class LayoutComponent {
       mayeucau: listHTML.request_id[index],
       dauViec: listHTML.task_code[index],
       madauViec: listHTML.task_ID[index],
+      maTram: listHTML.station_code[index],
       ketQua: listHTML.result[index],
       doChinhXac: listHTML.confidence_score[index],
       khoangThoiGian: listHTML.created_at[index],

@@ -2,13 +2,14 @@
   <c-col xs="4">
     <c-card class="mb-4">
       <c-card-body>
-        <p><strong>Loại Hạ Tầng Mạng Lưới:</strong> {{ loaiHTML }}</p>
-        <p><strong>Đối tượng:</strong> {{ doiTuongHTML }}</p>
-        <p><strong>Đối tượng ảnh chụp:</strong> {{ doiTuongAnh }}</p>
-        <p><strong>Công việc:</strong> {{ dauViec }}</p>
-        <p><strong>Kết quả:</strong> {{ ketQua }}</p>
-        <p><strong>Độ tin cậy:</strong> {{ doChinhXac }}</p>
-        <p><strong>Thời gian chụp:</strong> {{ khoangThoiGian }}</p>
+        <p><strong> {{ 'CARD.LABELS.LOAI_HTML' | translate }}: </strong> {{ loaiHTML }}</p>
+        <p><strong> {{ 'CARD.LABELS.DOI_TUONG_HTML' | translate }}: </strong> {{ doiTuongHTML }}</p>
+        <p><strong> {{ 'CARD.LABELS.DOI_TUONG_ANH' | translate }}: </strong> {{ doiTuongAnh }}</p>
+        <p><strong> {{ 'CARD.LABELS.DAU_VIEC' | translate }}: </strong> {{ dauViec }}</p>
+        <p><strong> {{ 'CARD.LABELS.MA_TRAM' | translate }}: </strong> {{ maTram }}</p>
+        <p><strong> {{ 'CARD.LABELS.KET_QUA' | translate }}: </strong> {{ ketQua }}</p>
+        <p><strong> {{ 'CARD.LABELS.DO_CHINH_XAC' | translate }}: </strong> {{ doChinhXac }}</p>
+        <p><strong> {{ 'CARD.LABELS.KHOANG_THOI_GIAN' | translate }}: </strong> {{ khoangThoiGian }}</p>
       </c-card-body>
     </c-card>
   </c-col>
@@ -17,26 +18,26 @@
     <!-- Card for Image Paths -->
     <c-card class="mb-4">
       <c-card-body>
-        <h5>Ảnh gốc</h5>
+        <h5> {{ 'CARD.IMAGE_1' | translate }} </h5>
         <c-row>
           <c-col *ngFor="let imgPath of imagePaths" xs="4" class="mb-3">
             <img [src]="imgPath" alt="Image" style="width: 100%; height: auto;" />
           </c-col>
         </c-row>
-        <p *ngIf="imagePaths.length === 0">Ảnh không có sẵn.</p> <!-- Message if no images -->
+        <p *ngIf="imagePaths.length === 0"> {{ 'CARD.D1' | translate }} </p> <!-- Message if no images -->
       </c-card-body>
     </c-card>
 
     <!-- Card for Image Results -->
     <c-card class="mb-4">
       <c-card-body>
-        <h5>Ảnh kết quả</h5>
+        <h5>{{ 'CARD.IMAGE_2' | translate }}</h5>
         <c-row *ngIf="imgResult.length > 0">
           <c-col *ngFor="let imgRt of imgResult" xs="4" class="mb-3">
             <img [src]="imgRt" alt="Result Image" style="width: 100%; height: auto;" />
           </c-col>
         </c-row>
-        <p *ngIf="imgResult.length === 0">Ảnh không có sẵn.</p> <!-- Message if no images -->
+        <p *ngIf="imgResult.length === 0"> {{ 'CARD.D1' | translate }} </p> <!-- Message if no images -->
       </c-card-body>
     </c-card>
   </c-col>

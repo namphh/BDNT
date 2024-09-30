@@ -6,13 +6,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'; // Import tap operator
 import { AppConfig } from 'src/app/app-config';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
+
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss'],
   standalone: true,
-  imports: [CommonModule, RowComponent, ColComponent, CardComponent, CardBodyComponent, HttpClientModule]
+  imports: [CommonModule, RowComponent, ColComponent, CardComponent, CardBodyComponent, HttpClientModule, TranslateModule]
 })
 export class CardsComponent {
   loaiHTML: string = '';
@@ -21,6 +23,7 @@ export class CardsComponent {
   mayeucau: string = '';
   dauViec: string = '';
   madauViec: string = '';
+  maTram: string = '';
   ketQua: string = '';
   doChinhXac: string = '';
   khoangThoiGian: string = '';
@@ -28,7 +31,7 @@ export class CardsComponent {
   tasks: any[] = []; // Define tasks to hold API response
   imgResult: string[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private translate: TranslateService) {
     this.route.queryParams.subscribe(params => {
       this.loaiHTML = params['loaiHTML'] || '';
       this.doiTuongHTML = params['doiTuongHTML'] || '';
@@ -36,6 +39,7 @@ export class CardsComponent {
       this.mayeucau = params['mayeucau'] || '';
       this.dauViec = params['dauViec'] || '';
       this.madauViec = params['madauViec'] || '';
+      this.maTram = params['maTram'] || '';
       this.ketQua = params['ketQua'] || '';
       this.doChinhXac = params['doChinhXac'] || '';
       this.khoangThoiGian = params['khoangThoiGian'] || '';
