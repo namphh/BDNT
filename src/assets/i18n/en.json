@@ -1,0 +1,176 @@
+{
+  "login": {
+    "title": "Login",
+    "description": "Sign In to your account: {{username}}",
+    "login.button": "Login now"
+  },
+  "HOME": "Home",
+  "SETTINGS": "Settings",
+  "LOGOUT": "Logout",
+  "WELCOME": "Welcome",
+  "LIGHT_MODE": "Light Mode",
+  "DARK_MODE": "Dark Mode",
+  "DASHBOARD": {
+    "LOADING": "Loading ...",
+    "TITLE": "OVERVIEW",
+    "CARDS": {
+      "CARD_1": {
+        "TITLE": "Number of monitoring requests",
+        "CHART_LABEL": "Bar chart for visits 1"
+      },
+      "CARD_2": {
+        "TITLE": "Number of monitoring stations",
+        "CHART_LABEL": "Bar chart for visits 2"
+      },
+      "CARD_3": {
+        "TITLE": "Number of approved requests",
+        "CHART_LABEL": "Bar chart for visits 3"
+      },
+      "CARD_4": {
+        "TITLE": "Number of error requests",
+        "CHART_LABEL": "Bar chart for visits 4"
+      }
+    },
+    "TABLES": {
+      "MONTHLY_REQUESTS": {
+        "TITLE": "Number of requests by month",
+        "HEADERS": {
+          "MONTH": "Month",
+          "APPROVED": "Number of approved requests",
+          "REJECTED": "Number of error requests",
+          "TOTAL": "Total requests"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS": {
+        "TITLE": "Top 10 stations with the most errors",
+        "HEADERS": {
+          "INDEX": "No.",
+          "STATION_CODE": "Station Code",
+          "ERROR_COUNT": "Number of errors"
+        }
+      },
+      "TOP_10_OBJECT_ERRORS": {
+        "TITLE": "Top 10 captured objects with errors",
+        "HEADERS": {
+          "INDEX": "No.",
+          "OBJECT": "Captured Object",
+          "ERROR_COUNT": "Number of errors"
+        }
+      },
+      "TOP_10_TASK_ERRORS": {
+        "TITLE": "Top 10 tasks with the most errors",
+        "HEADERS": {
+          "INDEX": "No.",
+          "TASK": "Task",
+          "ERROR_COUNT": "Number of errors"
+        }
+      },
+      "TOP_10_PROVINCES_ERRORS_BY_NATION": {
+        "TITLE": "Top 10 provinces with the most errors",
+        "HEADERS": {
+          "INDEX": "No.",
+          "PROVINCE_CODE": "Province Code",
+          "ERROR_COUNT": "Number of errors"
+        }
+      },
+      "TOP_10_INFRA_ERRORS": {
+        "TITLE": "Top 10 worst Network Infrastructure objects",
+        "HEADERS": {
+          "INDEX": "No.",
+          "INFRA_TYPE": "Object",
+          "ERROR_COUNT": "Number of errors"
+        }
+      }
+    }
+  },
+    "FILTERS": {
+      "ALL": "All"
+    },
+  "TABS": {
+    "TITLE": "List of Network Infrastructure",
+    "COLUMNS": {
+      "TYPE": "Type",
+      "OBJECT": "Object",
+      "OBJECT_PHOTO": "Photo Object",
+      "WORK": "Task"
+    },
+    "FILTERS": {
+      "ALL": "All"
+    }
+  },
+  "LAYOUT": {
+    "NO_DATA": "No data",
+    "LOADING": "Loading ...",
+    "VIEW": "Check",
+    "TIME": {
+      "OPTION_1": "1 month - now",
+      "OPTION_2": "3 months - now", 
+      "OPTION_3": "6 months - now", 
+      "OPTION_4": "1 year - now",
+      "OPTION_5": "All"
+    },
+    "RESULTS": "Results",
+    "TITLE": "Search",
+    "ALL": "All",
+    "HEADER": {
+      "CHANGE_LANGUAGE": "Change Language"
+    },
+    "BUTTON": {
+      "EXPORT_REPORT": "Export Report",
+      "EXPORT_EXCEL": "Export Excel"
+    },
+    "LABELS": {
+      "LOAI_HTML": "Type",
+      "DOI_TUONG_HTML": "Object",
+      "DOI_TUONG_ANH": "Photo Object",
+      "DAU_VIEC": "Task",
+      "MA_TRAM": "Station code",
+      "KHOANG_THOI_GIAN": "Time",
+      "KET_QUA": "Result",
+      "DO_CHINH_XAC": "Accuracy",
+      "THOI_GIAN_CHUP": "Capture Time",
+      "CHI_TIET": "Detail"
+    }
+  },
+  "CARD": {
+    "IMAGE_1": "Original photo",
+    "IMAGE_2": "Result photo",
+    "D1": "No image available",
+    "D2": "No image available",
+    "LABELS": {
+      "LOAI_HTML": "Type",
+      "DOI_TUONG_HTML": "Object",
+      "DOI_TUONG_ANH": "Photo Object",
+      "DAU_VIEC": "Task",
+      "MA_TRAM": "Station code",
+      "KHOANG_THOI_GIAN": "Time",
+      "KET_QUA": "Result",
+      "DO_CHINH_XAC": "Accuracy",
+      "THOI_GIAN_CHUP": "Capture Time",
+      "CHI_TIET": "Detail"
+    }
+  },
+  "MAIN": {
+    "TITLE": "OVERVIEW",
+    "LIST": "List of Network Infrastructure",
+    "NEW": "New",
+    "SEARCH": "Search"
+  },
+  "CHART": {
+    "LABELS": {
+      "QUANTITY": "Quantity",
+      "JAN": "January",
+      "FEB": "February",
+      "MAR": "March",
+      "APR": "April",
+      "MAY": "May",
+      "JUN": "June",
+      "JUL": "July",
+      "AUG": "August",
+      "SEP": "September",
+      "OCT": "October",
+      "NOV": "November",
+      "DEC": "December"
+    }
+  }
+}

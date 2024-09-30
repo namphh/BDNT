@@ -2,103 +2,108 @@
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Kết quả tìm kiếm</strong>
+        <div class="language-switcher text-end mb-3">
+          <!-- <button (click)="switchLanguage('en')" class="btn btn-primary">EN</button>
+          <button (click)="switchLanguage('vi')" class="btn btn-primary">VI</button>
+          <button (click)="switchLanguage('km')" class="btn btn-primary">KM</button> Added Cambodian -->
+        </div>
+        <strong>{{ 'LAYOUT.TITLE' | translate }}</strong>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3">
           <!-- Infra Type Field -->
           <c-col md="3">  
-            <label for="inputField1">Loại</label>
+            <label for="inputField1">{{ 'LAYOUT.LABELS.LOAI_HTML' | translate }}</label>
             <select cSelect id="inputField1">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option *ngFor="let option of options['Loại hạ tầng mạng lưới']">{{ option }}</option>
             </select>
           </c-col>
           <!-- Infra Object Field -->
           <c-col md="3">
-            <label for="inputField2">Đối tượng</label>
+            <label for="inputField2">{{ 'LAYOUT.LABELS.DOI_TUONG_HTML' | translate }}</label>
             <select cSelect id="inputField2">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option *ngFor="let option of options['Đối tượng hạ tầng mạng lưới']">{{ option }}</option>
             </select>
           </c-col>
           <!-- Object Station Name Field -->
           <c-col md="3">
-            <label for="inputField3">Đối tượng ảnh chụp</label>
+            <label for="inputField3">{{ 'LAYOUT.LABELS.DOI_TUONG_ANH' | translate }}</label>
             <select cSelect id="inputField3">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option *ngFor="let option of options['Đối tượng ảnh chụp']">{{ option }}</option>
             </select>
           </c-col>
           <!-- Task Field -->
           <c-col md="3">
-            <label for="inputField4">Công việc</label>
+            <label for="inputField4">{{ 'LAYOUT.LABELS.DAU_VIEC' | translate }}</label>
             <select cSelect id="inputField4">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option *ngFor="let option of options['Đầu việc']">{{ option }}</option>
             </select>
           </c-col>
           <!-- Station Code Field -->
           <c-col md="2">
-            <label for="inputField5">Mã Trạm</label>
+            <label for="inputField5">{{ 'LAYOUT.LABELS.MA_TRAM' | translate }}</label>
             <select cSelect id="inputField5">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option *ngFor="let option of options['Mã trạm']">{{ option }}</option>
             </select>
           </c-col>
           <!-- Time Period Field -->
           <c-col md="2">
-            <label for="inputField6">Khoảng thời gian</label>
+            <label for="inputField6">{{ 'LAYOUT.LABELS.KHOANG_THOI_GIAN' | translate }}</label>
             <select cSelect id="inputField6">
-              <option value="1 tháng - nay" selected>1 tháng - nay</option>
-              <option>3 tháng - nay</option>
-              <option>6 tháng - nay</option>
-              <option>1 năm - nay</option>
-              <option>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.TIME.OPTION_5' | translate }} </option>
+              <option value="1 năm - nay" selected> {{ 'LAYOUT.TIME.OPTION_4' | translate }} </option>
+              <option value="6 tháng - nay" selected> {{ 'LAYOUT.TIME.OPTION_3' | translate }} </option>
+              <option value="3 tháng - nay" selected> {{ 'LAYOUT.TIME.OPTION_2' | translate }} </option>
+              <option value="1 tháng - nay" selected> {{ 'LAYOUT.TIME.OPTION_1' | translate }} </option>
             </select>
           </c-col>
           <!-- Results Field -->
           <c-col md="2">
-            <label for="inputField7">Kết quả</label>
+            <label for="inputField7">{{ 'LAYOUT.LABELS.KET_QUA' | translate }}</label>
             <select cSelect id="inputField7">
-              <option value="Tất cả" selected>Tất cả</option>
+              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
               <option>Pass</option>
               <option>Fail</option>
             </select>
           </c-col>
           <!-- Reliability Field -->
           <c-col md="2">
-            <label for="inputField8">Độ tin cậy (%)</label>
+            <label for="inputField8">{{ 'LAYOUT.LABELS.DO_CHINH_XAC' | translate }} (%)</label>
             <input type="text" id="inputField8" placeholder=">=" />
           </c-col>
           <!-- Buttons -->
           <c-col md="6" class="c-col-button">
-            <button type="button" (click)="onSubmit($event)" cButton color="primary">Xuất báo cáo</button>
-            <button type="button" (click)="exportReport()" cButton color="primary">Xuất Excel</button>
+            <button type="button" (click)="onSubmit($event)" cButton color="primary">{{ 'LAYOUT.BUTTON.EXPORT_REPORT' | translate }}</button>
+            <button type="button" (click)="exportReport()" cButton color="primary">{{ 'LAYOUT.BUTTON.EXPORT_EXCEL' | translate }}</button>
           </c-col>          
         </form>
 
         <!-- Hiển thị bảng kết quả hoặc spinner khi đang tải -->
         <div *ngIf="isLoading" class="spinner-container text-center">
           <c-spinner color="primary" size="sm" variant="grow"></c-spinner>
-          <p>Đang tải ...</p>
+          <p>{{ 'LAYOUT.LOADING' | translate }}</p> <!-- Add a loading text key in your JSON -->
         </div>
 
         <div *ngIf="!isLoading">
           <div *ngIf="List_HTML.html_type.length > 0; else noData" class="mt-4">
-            <h5>Kết quả tìm kiếm:</h5>
+            <h5>{{ 'LAYOUT.RESULTS' | translate }}</h5> <!-- Add a results key in your JSON -->
             <table class="table">
               <thead>
                 <tr>
-                  <th>Loại</th>
-                  <th>Đối tượng</th>
-                  <th>Đối tượng ảnh chụp</th>
-                  <th>Công việc</th>
-                  <th>Mã trạm</th>
-                  <th>Kết quả</th>
-                  <th>Thời gian</th>
-                  <th>Độ tin cậy</th>
-                  <th>Chi tiết</th>
+                  <th>{{ 'LAYOUT.LABELS.LOAI_HTML' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.DOI_TUONG_HTML' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.DOI_TUONG_ANH' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.DAU_VIEC' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.MA_TRAM' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.KET_QUA' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.THOI_GIAN_CHUP' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.DO_CHINH_XAC' | translate }}</th>
+                  <th>{{ 'LAYOUT.LABELS.CHI_TIET' | translate }}</th> <!-- Add a details key in your JSON -->
                 </tr>
               </thead>
               <tbody>
@@ -113,7 +118,7 @@
                   <td>{{ List_HTML.confidence_score[i] }}</td>
                   <td>
                     <a (click)="navigateToCard(List_HTML, i)">
-                      <span style="color: red; text-decoration: underline; cursor: pointer;">Xem</span>
+                      <span style="color: red; text-decoration: underline; cursor: pointer;">{{ 'LAYOUT.VIEW' | translate }}</span> <!-- Add a view key in your JSON -->
                     </a>
                   </td>
                 </tr>
@@ -124,7 +129,7 @@
           <!-- Thông báo "Không có dữ liệu" chỉ sau khi nút "Xuất báo cáo" đã được nhấn -->
           <ng-template #noData>
             <div *ngIf="isSubmitted" class="text-center mt-4">
-              <h5>Không có dữ liệu</h5>
+              <h5>{{ 'LAYOUT.NO_DATA' | translate }}</h5> <!-- Add a no data key in your JSON -->
             </div>
           </ng-template>
         </div>

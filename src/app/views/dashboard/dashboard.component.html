@@ -1,12 +1,12 @@
 <div *ngIf="isLoading" class="spinner-container text-center">
   <c-spinner color="primary" size="sm" variant="grow"></c-spinner>
-  <p>Đang tải ...</p>
+  <p> {{ 'LAYOUT.LOADING' | translate }} </p>
 </div>
 
 <div *ngIf="!isLoading">
   <!-- Title -->
   <div class="title-container text-center mb-4">
-    <h1 class="title-text">TỔNG QUAN</h1>
+    <h1 class="title-text"> {{ 'DASHBOARD.TITLE' | translate }} </h1>
   </div>
 
   <!-- First row with two columns -->
@@ -16,7 +16,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart1">Số lượng yêu cầu giám sát</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart1"> {{ 'DASHBOARD.CARDS.CARD_1.TITLE' | translate }} </h4>
             </c-col>
           </c-row>
           <c-chart
@@ -37,7 +37,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart2">Số lượng trạm giám sát</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart2"> {{ 'DASHBOARD.CARDS.CARD_2.TITLE' | translate }} </h4>
             </c-col>
           </c-row>
           <c-chart
@@ -61,7 +61,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart3">Số lượng yêu cầu đạt</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart3"> {{ 'DASHBOARD.CARDS.CARD_3.TITLE' | translate }} </h4>
             </c-col>
           </c-row>
           <c-chart
@@ -82,7 +82,7 @@
         <c-card-body>
           <c-row>
             <c-col sm="12">
-              <h4 class="card-title mb-0 text-center" id="visitsChart4">Số lượng yêu cầu lỗi</h4>
+              <h4 class="card-title mb-0 text-center" id="visitsChart4"> {{ 'DASHBOARD.CARDS.CARD_4.TITLE' | translate }} </h4>
             </c-col>
           </c-row>
           <c-chart
@@ -104,14 +104,14 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Số lượng yêu cầu theo tháng</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.MONTHLY_REQUESTS.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Tháng</th>
-                <th scope="col">Số yêu cầu đạt</th>
-                <th scope="col">Số yêu cầu lỗi</th>
-                <th scope="col">Số yêu cầu tổng</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.MONTHLY_REQUESTS.HEADERS.MONTH' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.MONTHLY_REQUESTS.HEADERS.APPROVED' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.MONTHLY_REQUESTS.HEADERS.REJECTED' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.MONTHLY_REQUESTS.HEADERS.TOTAL' | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -130,13 +130,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 trạm phát sinh nhiều lỗi nhất</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Mã Trạm</th>
-                <th scope="col">Số lỗi</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS.HEADERS.INDEX' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS.HEADERS.STATION_CODE' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS.HEADERS.ERROR_COUNT' | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -157,13 +157,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 đối tượng ảnh chụp phát sinh lỗi</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.TOP_10_OBJECT_ERRORS.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Đối tượng ảnh chụp</th>
-                <th scope="col">Số lỗi</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_OBJECT_ERRORS.HEADERS.INDEX' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_OBJECT_ERRORS.HEADERS.OBJECT' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_OBJECT_ERRORS.HEADERS.ERROR_COUNT' | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -181,13 +181,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 đầu việc phát sinh nhiều lỗi nhất</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.TOP_10_TASK_ERRORS.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Đầu việc</th>
-                <th scope="col">Số lỗi</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_TASK_ERRORS.HEADERS.INDEX' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_TASK_ERRORS.HEADERS.TASK' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_TASK_ERRORS.HEADERS.ERROR_COUNT' | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -208,13 +208,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 tỉnh phát sinh nhiều lỗi nhất</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS_BY_NATION.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Mã Tỉnh</th>
-                <th scope="col">Số lỗi</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS_BY_NATION.HEADERS.INDEX' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS_BY_NATION.HEADERS.PROVINCE_CODE' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_PROVINCES_ERRORS_BY_NATION.HEADERS.ERROR_COUNT' | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -232,13 +232,13 @@
     <c-col xs="12" md="6" xl="6">
       <c-card class="mb-4">
         <c-card-body>
-          <h4 class="card-title mb-4 text-center">Top 10 đối tượng Hạ Tầng Mạng Lưới kém nhất</h4>
+          <h4 class="card-title mb-4 text-center"> {{ 'DASHBOARD.TABLES.TOP_10_INFRA_ERRORS.TITLE' | translate }} </h4>
           <table class="table table-striped table-bordered text-center">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Đối tượng</th>
-                <th scope="col">Số Lỗi</th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_INFRA_ERRORS.HEADERS.INDEX' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_INFRA_ERRORS.HEADERS.INFRA_TYPE' | translate }} </th>
+                <th scope="col"> {{ 'DASHBOARD.TABLES.TOP_10_INFRA_ERRORS.HEADERS.ERROR_COUNT' | translate }} </th>
               </tr>
             </thead>
             <tbody>

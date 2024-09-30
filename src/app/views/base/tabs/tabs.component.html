@@ -1,5 +1,11 @@
 <div class="title-container text-center mb-4">
-  <h1 class="title-text">Danh sách Hạ Tầng Mạng Lưới</h1>
+  <h1 class="title-text">{{ 'TABS.TITLE' | translate }}</h1>
+</div>
+
+<div class="language-switcher text-end mb-3">
+  <!-- <button (click)="switchLanguage('en')" class="btn btn-primary">EN</button>
+  <button (click)="switchLanguage('vi')" class="btn btn-primary">VI</button>
+  <button (click)="switchLanguage('km')" class="btn btn-primary">KM</button> Added Cambodian -->
 </div>
 
 <c-row>
@@ -9,33 +15,33 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th style="width: 15%;">Loại</th>
-              <th style="width: 28%;">Đối tượng</th>
-              <th style="width: 28%;">Đối tượng ảnh chụp</th>
-              <th style="width: 28%;">Công việc</th>
+              <th style="width: 15%;">{{ 'TABS.COLUMNS.TYPE' | translate }}</th>
+              <th style="width: 28%;">{{ 'TABS.COLUMNS.OBJECT' | translate }}</th>
+              <th style="width: 28%;">{{ 'TABS.COLUMNS.OBJECT_PHOTO' | translate }}</th>
+              <th style="width: 28%;">{{ 'TABS.COLUMNS.WORK' | translate }}</th>
             </tr>
             <tr>
               <th style="padding: 0; margin-right: 10px;">
                 <select id="loaiHTML" [(ngModel)]="selectedFilters['loaiHTML']" class="filter-select" (change)="updateFilterOptions()">
-                  <option value="">Tất cả</option>
+                  <option value="">{{ 'TABS.FILTERS.ALL' | translate }}</option>
                   <option *ngFor="let option of filterOptions.loaiHTML" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0; margin-right: 10px;">
                 <select id="doiTuongHTML" [(ngModel)]="selectedFilters['doiTuongHTML']" class="filter-select" (change)="updateFilterOptions()">
-                  <option value="">Tất cả</option>
+                  <option value="">{{ 'TABS.FILTERS.ALL' | translate }}</option>
                   <option *ngFor="let option of filterOptions.doiTuongHTML" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0; margin-right: 10px;">
                 <select id="doiTuongAnhChup" [(ngModel)]="selectedFilters['doiTuongAnhChup']" class="filter-select" (change)="updateFilterOptions()">
-                  <option value="">Tất cả</option>
+                  <option value="">{{ 'TABS.FILTERS.ALL' | translate }}</option>
                   <option *ngFor="let option of filterOptions.doiTuongAnhChup" [value]="option">{{ option }}</option>
                 </select>
               </th>
               <th style="padding: 0;">
                 <select id="dauViec" [(ngModel)]="selectedFilters['dauViec']" class="filter-select" (change)="updateFilterOptions()">
-                  <option value="">Tất cả</option>
+                  <option value="">{{ 'TABS.FILTERS.ALL' | translate }}</option>
                   <option *ngFor="let option of filterOptions.dauViec" [value]="option">{{ option }}</option>
                 </select>
               </th>

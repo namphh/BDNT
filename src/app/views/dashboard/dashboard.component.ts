@@ -30,6 +30,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SpinnerModule } from '@coreui/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
+
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -59,7 +61,8 @@ import { SpinnerModule } from '@coreui/angular';
     TableDirective,
     AvatarComponent,
     HttpClientModule,
-    SpinnerModule
+    SpinnerModule,
+    TranslateModule
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -87,7 +90,14 @@ export class DashboardComponent implements OnInit {
 
   private APIURL = `${AppConfig.server}/`;  // Sử dụng server URL
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private translate: TranslateService) {
+    // Set the default language to English
+    this.translate.setDefaultLang('en');
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 
   monthly_rq(): Observable<any> {
     return this.http.get(this.APIURL + "num_rq_per_month").pipe(

@@ -3,19 +3,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [
-      "@angular/localize"
-    ],
+    "types": ["@angular/localize"],
     "paths": {
-      "@docs-components/*": [
-        "./src/components/*"
-      ]
+      "@docs-components/*": ["./src/components/*"],
+      "@enums/*": ["./src/enums/*"],
+      "@services/*": ["./src/services/*"]
     }
   },
-  "files": [
-    "src/main.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.d.ts"]
 }

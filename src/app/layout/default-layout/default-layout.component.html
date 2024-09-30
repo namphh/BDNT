@@ -32,7 +32,12 @@
     pointerEventsMethod="scrollbar"
     visibility="hover"
   >
-    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
+    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact>
+      <ng-template let-item let-key="key">
+        <span> zzzzzz </span>
+      </ng-template>
+    </c-sidebar-nav>
+  
   </ng-scrollbar>
   @if (!sidebar1.narrow) {
     <c-sidebar-footer
