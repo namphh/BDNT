@@ -27,8 +27,12 @@
         "CHART_LABEL": "Bar chart for visits 3"
       },
       "CARD_4": {
-        "TITLE": "Số lượng yêu cầu lỗi",
+        "TITLE": "Số lượng yêu cầu lỗi bảo dưỡng",
         "CHART_LABEL": "Bar chart for visits 4"
+      },
+      "CARD_5": {
+        "TITLE": "Số lượng yêu cầu lỗi báo hỏng",
+        "CHART_LABEL": "Bar chart for visits 5"
       }
     },
     "TABLES": {
@@ -151,7 +155,7 @@
   },
   "MAIN": {
     "TITLE": "TỔNG QUAN",
-    "LIST": "Danh Sách Hạ Tầng Mạng Lưới",
+    "LIST": "Hạ Tầng Mạng Lưới",
     "NEW": "Mới",
     "SEARCH": "Tìm kiếm"
 

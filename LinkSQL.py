@@ -303,27 +303,52 @@ async def num_rq_pass_per_month():
 
     return JSONResponse(content=response)
 
-@app.get("/num_rq_fail_per_month")
+@app.get("/num_rq_fail_bd_per_month")
 async def num_rq_fail_per_month():
     bdnt_instance.connect_SQL()
 
     query = '''
-    SELECT 
-    MONTH(R.created_at) AS MONTH_ID, 
-    COUNT(DISTINCT CASE 
-        WHEN T.request_id IN (
-            SELECT request_id 
-            FROM tasks_result 
-            GROUP BY request_id 
-            HAVING MIN(result) = 0
-        ) THEN R.request_id END) AS Num_Fail
-    FROM 
-        requests_info R
-    JOIN 
-        tasks_result T ON R.request_id = T.request_id
-    GROUP BY 
-        MONTH_ID;
+    SELECT MONTH(r.created_at) AS MONTH_ID, COUNT(t.task_code) AS Num_Fail
+    FROM tasks_result t
+    JOIN requests_info r ON t.request_id = r.request_id
+    WHERE t.task_code LIKE 'BD%' AND t.result = 0
+    GROUP BY MONTH(r.created_at)
     '''
+    bdnt_instance.cur.execute(query)
+
+    results = []
+    for (MONTH_ID, Num_fail) in bdnt_instance.cur:
+        results.append({
+            "MONTH_ID": MONTH_ID,
+            "Num_fail": Num_fail
+        })
+    
+    bdnt_instance.disconnect_SQL()
+
+    response = {
+        "data": results,
+        "msg": "success",
+        "code": 200
+    }
+
+    return JSONResponse(content=response)
+
+@app.get("/num_rq_fail_bh_per_month")
+async def num_rq_fail_bh_per_month():
+    bdnt_instance.connect_SQL()
+
+    query = '''
+    SELECT MONTH(r.created_at) AS MONTH_ID, COUNT(t.task_code) AS Num_Fail
+    FROM tasks_result t
+    JOIN requests_info r ON t.request_id = r.request_id
+    WHERE t.request_id IN (SELECT t.request_id
+        FROM tasks_result t
+        JOIN requests_info r ON t.request_id = r.request_id
+        WHERE t.task_code LIKE 'BD%' AND t.result = 1)
+        AND t.task_code LIKE 'BH%' AND t.result = 0
+    GROUP BY MONTH(r.created_at)
+    '''
+
     bdnt_instance.cur.execute(query)
 
     results = []

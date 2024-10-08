@@ -82,6 +82,8 @@ export class DashboardComponent implements OnInit {
   tasks_monthly_rq: any = [];
   tasks_top10_prov: any = [];
   tasks_num_station: any = [];
+  tasks_num_err_bd: any = [];
+  tasks_num_err_bh: any = [];
   tasks_top10_oj: any = [];
   tasks_top10_task: any = [];
   tasks_top10_nation: any = [];
@@ -162,6 +164,24 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  num_err_bd(): Observable<any> {
+    return this.http.get(this.APIURL + "num_rq_fail_bd_per_month").pipe(
+      tap((res: any) => {
+        this.tasks_num_err_bd = res.data;
+        this.update_num_err_bd();
+      })
+    );
+  }
+
+  num_err_bh(): Observable<any> {
+    return this.http.get(this.APIURL + "num_rq_fail_bh_per_month").pipe(
+      tap((res: any) => {
+        this.tasks_num_err_bh = res.data;
+        this.update_num_err_bh();
+      })
+    );
+  }
+
   public chart: Array<IChartProps> = [];
   public trafficRadioGroup = new FormGroup({
     trafficRadio: new FormControl('Month')
@@ -171,7 +191,9 @@ export class DashboardComponent implements OnInit {
     rejected_requests: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     approved_requests: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     total_requests: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    num_station: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    num_station: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    bh_requests: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    bd_requests: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   };
 
   updateMonthlyRequests() {
@@ -181,6 +203,24 @@ export class DashboardComponent implements OnInit {
       this.monthlyRequests.rejected_requests[request_month - 1] = failed_requests;
       this.monthlyRequests.approved_requests[request_month - 1] = passed_requests;
       this.monthlyRequests.total_requests[request_month - 1] = total_requests;
+    });
+  }
+
+  update_num_err_bd() {
+    // console.log(this.tasks_num_err_bd);
+    this.tasks_num_err_bd.forEach((task: any) => {
+      const { MONTH_ID, Num_fail } = task;
+      // console.log(MONTH_ID, Num_fail)
+      this.monthlyRequests.bd_requests[MONTH_ID - 1] = Num_fail;
+    });
+  }
+
+  update_num_err_bh() {
+    // console.log(this.tasks_num_err_bh);
+    this.tasks_num_err_bh.forEach((task: any) => {
+      const { MONTH_ID, Num_fail } = task;
+      // console.log(MONTH_ID, Num_fail)
+      this.monthlyRequests.bh_requests[MONTH_ID - 1] = Num_fail;
     });
   }
 
@@ -287,7 +327,9 @@ export class DashboardComponent implements OnInit {
       this.top_10_oj(),
       this.top_10_task(),
       this.num_station_monitor(),
-      this.top_10_html_error()
+      this.top_10_html_error(),
+      this.num_err_bd(),
+      this.num_err_bh(),
     ]).subscribe(() => {
       this.initCharts(); // Khởi tạo biểu đồ sau khi tất cả dữ liệu đã được tải
       this.isLoading = false;
@@ -300,6 +342,9 @@ export class DashboardComponent implements OnInit {
     datasets[1] = this.monthlyRequests.num_station;
     datasets[2] = this.monthlyRequests.approved_requests;
     datasets[3] = this.monthlyRequests.rejected_requests;
+    datasets[4] = this.monthlyRequests.bh_requests;
+    datasets[5] = this.monthlyRequests.bd_requests;
+
     this.chart = datasets.map((dataSet) => this.#chartsData.initMainChart('Month', dataSet));
   }
 

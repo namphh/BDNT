@@ -108,3 +108,35 @@ table {
     width: 100%; // Make buttons full width on smaller screens
   }
 }
+
+
+.dropdown-container {
+  position: relative;
+}
+
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dropdown-list {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background: white;
+  z-index: 1000;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f1f1f1;
+}

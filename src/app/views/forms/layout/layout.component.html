@@ -46,11 +46,25 @@
           <!-- Station Code Field -->
           <c-col md="2">
             <label for="inputField5">{{ 'LAYOUT.LABELS.MA_TRAM' | translate }}</label>
-            <select cSelect id="inputField5">
-              <option value="Tất cả" selected> {{ 'LAYOUT.ALL' | translate }}</option>
-              <option *ngFor="let option of options['Mã trạm']">{{ option }}</option>
-            </select>
-          </c-col>
+            <input 
+                type="text" 
+                id="inputField5" 
+                [(ngModel)]="searchTerm5" 
+                [ngModelOptions]="{ standalone: true }" 
+                (input)="filterOptions('Mã trạm')"
+                (keyup)="onKeyUp($event)"
+                placeholder="{{ 'LAYOUT.ALL' | translate }}" 
+                (focus)="showDropdown5 = true" 
+                class="form-control"
+            />
+            <div class="dropdown-container" *ngIf="showDropdown5 && filteredOptions5.length > 0">
+                <ul class="dropdown-list">
+                    <li *ngFor="let option of filteredOptions5" (click)="selectOption(option, 'Mã trạm')" class="dropdown-item">
+                        {{ option }}
+                    </li>
+                </ul>
+            </div>
+        </c-col>
           <!-- Time Period Field -->
           <c-col md="2">
             <label for="inputField6">{{ 'LAYOUT.LABELS.KHOANG_THOI_GIAN' | translate }}</label>

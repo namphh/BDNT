@@ -14,6 +14,7 @@ import { DataService } from '../../../data.service'
 import { AppConfig } from 'src/app/app-config';
 import { SpinnerModule } from '@coreui/angular';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Import ngx-translate service
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @Component({
@@ -45,7 +46,8 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';  // Imp
     CommonModule, 
     HttpClientModule,
     SpinnerModule,
-    TranslateModule
+    TranslateModule,
+    NgSelectModule
   ]
 })
 export class LayoutComponent {
@@ -77,6 +79,25 @@ export class LayoutComponent {
     'Đầu việc': [''],
     'Mã trạm': ['']
   };
+
+  searchTerm1: string = ''; // Holds the search term for input field 1
+  searchTerm2: string = ''; // Holds the search term for input field 2
+  searchTerm3: string = ''; // Holds the search term for input field 3
+  searchTerm4: string = ''; // Holds the search term for input field 4
+  searchTerm5: string = ''; // Holds the search term for input field 5
+  
+  filteredOptions1: string[] = []; // Holds the filtered options for input field 1
+  filteredOptions2: string[] = []; // Holds the filtered options for input field 2
+  filteredOptions3: string[] = []; // Holds the filtered options for input field 3
+  filteredOptions4: string[] = []; // Holds the filtered options for input field 4
+  filteredOptions5: string[] = []; // Holds the filtered options for input field 5
+  
+  showDropdown1: boolean = false; // Controls the visibility of dropdown for input field 1
+  showDropdown2: boolean = false; // Controls the visibility of dropdown for input field 2
+  showDropdown3: boolean = false; // Controls the visibility of dropdown for input field 3
+  showDropdown4: boolean = false; // Controls the visibility of dropdown for input field 4
+  showDropdown5: boolean = false; // Controls the visibility of dropdown for input field 5
+
 
   constructor(private http: HttpClient, private router: Router, private dataService: DataService, private translate: TranslateService) {
     // Set the default language to English
@@ -122,7 +143,7 @@ export class LayoutComponent {
       this.List_HTML = { ...this.dataService.listHTML }; // Load from the service
     }
   }
-
+  // Load options from multiple services
   loadOptions() {
     forkJoin([
       this.html_type(),
@@ -130,51 +151,170 @@ export class LayoutComponent {
       this.object_station(),
       this.task_code(),
       this.station_code()
-    ]).subscribe();
+    ]).subscribe(() => {
+      // Initialize filtered options after loading all options
+      this.filteredOptions1 = [...this.options['Loại hạ tầng mạng lưới']];
+      this.filteredOptions2 = [...this.options['Đối tượng hạ tầng mạng lưới']];
+      this.filteredOptions3 = [...this.options['Đối tượng ảnh chụp']];
+      this.filteredOptions4 = [...this.options['Đầu việc']];
+      this.filteredOptions5 = [...this.options['Mã trạm']];
+    });
   }
-
+  
+  // Load html_type options from API
   html_type(): Observable<any> {
     return this.http.get(this.APIURL + "html_type").pipe(
       tap((res: any) => {
-        this.options['Loại hạ tầng mạng lưới'] = this.removeDuplicatesAndEmpty(res.data.map((task: any) => task.html_type));
+        this.options['Loại hạ tầng mạng lưới'] = this.removeDuplicatesAndEmpty(
+          res.data.map((task: any) => task.html_type).flat() // Flattening the array
+        );
       })
     );
   }
 
+  
+  // Filter the options based on the search term
+  filterOptions(field: string): void {
+    switch(field) {
+      case 'Loại hạ tầng mạng lưới':
+        this.filteredOptions1 = this.filterArray(this.options['Loại hạ tầng mạng lưới'], this.searchTerm1);
+        this.showDropdown1 = this.filteredOptions1.length > 0;
+        break;
+      case 'Đối tượng hạ tầng mạng lưới':
+        this.filteredOptions2 = this.filterArray(this.options['Đối tượng hạ tầng mạng lưới'], this.searchTerm2);
+        this.showDropdown2 = this.filteredOptions2.length > 0;
+        break;
+      case 'Đối tượng ảnh chụp':
+        this.filteredOptions3 = this.filterArray(this.options['Đối tượng ảnh chụp'], this.searchTerm3);
+        this.showDropdown3 = this.filteredOptions3.length > 0;
+        break;
+      case 'Đầu việc':
+        this.filteredOptions4 = this.filterArray(this.options['Đầu việc'], this.searchTerm4);
+        this.showDropdown4 = this.filteredOptions4.length > 0;
+        break;
+      case 'Mã trạm':
+        this.filteredOptions5 = this.filterArray(this.options['Mã trạm'], this.searchTerm5);
+        this.showDropdown5 = this.filteredOptions5.length > 0;
+        break;
+      default:
+        break;
+    }
+  }
+  
+  // Filter array based on the search term
+  filterArray(options: string[], searchTerm: string): string[] {
+    if (searchTerm.trim() === '') {
+      return [...options];
+    } else {
+      return options.filter(option => {
+        if (typeof option === 'string') {
+          return option.toLowerCase().includes(searchTerm.toLowerCase());
+        } else {
+          console.warn('Non-string option detected and skipped:', option);
+          return false;
+        }
+      });
+    }
+  }
+  
+  // Handle option selection from the dropdown
+  selectOption(option: string, field: string): void {
+    switch(field) {
+      case 'Loại hạ tầng mạng lưới':
+        this.searchTerm1 = option; // Set the search term for input field 1
+        this.showDropdown1 = false; // Hide the dropdown after selection
+        break;
+      case 'Đối tượng hạ tầng mạng lưới':
+        this.searchTerm2 = option; // Set the search term for input field 2
+        this.showDropdown2 = false; // Hide the dropdown after selection
+        break;
+      case 'Đối tượng ảnh chụp':
+        this.searchTerm3 = option; // Set the search term for input field 3
+        this.showDropdown3 = false; // Hide the dropdown after selection
+        break;
+      case 'Đầu việc':
+        this.searchTerm4 = option; // Set the search term for input field 4
+        this.showDropdown4 = false; // Hide the dropdown after selection
+        break;
+      case 'Mã trạm':
+        this.searchTerm5 = option; // Set the search term for input field 5
+        this.showDropdown5 = false; // Hide the dropdown after selection
+        break;
+      default:
+        break;
+    }
+  }
+  
+  // Hide the dropdown when input loses focus, with a small delay to allow click events to be processed
+  hideDropdown(field: string): void {
+    setTimeout(() => {
+      switch(field) {
+        case 'Loại hạ tầng mạng lưới':
+          this.showDropdown1 = false;
+          break;
+        case 'Đối tượng hạ tầng mạng lưới':
+          this.showDropdown2 = false;
+          break;
+        case 'Đối tượng ảnh chụp':
+          this.showDropdown3 = false;
+          break;
+        case 'Đầu việc':
+          this.showDropdown4 = false;
+          break;
+        case 'Mã trạm':
+          this.showDropdown5 = false;
+          break;
+        default:
+          break;
+      }
+    }, 200);
+  }
+  
+  // Utility function to remove duplicates and empty strings
+  removeDuplicatesAndEmpty(arr: string[]): string[] {
+    return arr.filter((value, index, self) => value && self.indexOf(value) === index);
+  }
   html_object(): Observable<any> {
     return this.http.get(this.APIURL + "html_object").pipe(
       tap((res: any) => {
-        this.options['Đối tượng hạ tầng mạng lưới'] = this.removeDuplicatesAndEmpty(res.data.map((task: any) => task.html_object));
+        this.options['Đối tượng hạ tầng mạng lưới'] = this.removeDuplicatesAndEmpty(
+          res.data.map((task: any) => task.html_object).flat() 
+        );
       })
     );
   }
-
+  
+  // Object Station options
   object_station(): Observable<any> {
     return this.http.get(this.APIURL + "object_station").pipe(
       tap((res: any) => {
-        this.options['Đối tượng ảnh chụp'] = this.removeDuplicatesAndEmpty(res.data.map((task: any) => task.object_station_name));
+        this.options['Đối tượng ảnh chụp'] = this.removeDuplicatesAndEmpty(
+          res.data.map((task: any) => task.object_station_name).flat() 
+        );
       })
     );
   }
-
+  
+  // Task Code options
   task_code(): Observable<any> {
     return this.http.get(this.APIURL + "task_code").pipe(
       tap((res: any) => {
-        this.options['Đầu việc'] = this.removeDuplicatesAndEmpty(res.data.map((task: any) => task.task_code));
+        this.options['Đầu việc'] = this.removeDuplicatesAndEmpty(
+          res.data.map((task: any) => task.task_code).flat() 
+        );
       })
     );
   }
-
+  
+  // Station Code options
   station_code(): Observable<any> {
     return this.http.get(this.APIURL + "station_code").pipe(
       tap((res: any) => {
-        this.options['Mã trạm'] = this.removeDuplicatesAndEmpty(res.data.map((task: any) => task.station_code));
+        this.options['Mã trạm'] = this.removeDuplicatesAndEmpty(
+          res.data.map((task: any) => task.station_code).flat() 
+        );
       })
     );
-  }
-
-  removeDuplicatesAndEmpty(arr: any[]): any[] {
-    return arr.filter((value, index, self) => value && self.indexOf(value) === index);
   }
 
   formatDate(date: Date): string {
@@ -199,6 +339,18 @@ export class LayoutComponent {
       urls: []
     };
   }
+
+  onKeyUp(event: KeyboardEvent): void {
+    // Check if the Enter key is pressed
+    if (event.key === 'Enter') {
+      this.showDropdown1 = false;
+      this.showDropdown2 = false;
+      this.showDropdown3 = false; // Hide the dropdown
+      this.showDropdown4 = false;
+      this.showDropdown5 = false;
+    }
+  }
+
 
   exportReport() {
     // Define table headers

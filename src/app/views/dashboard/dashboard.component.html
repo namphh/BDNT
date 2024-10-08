@@ -86,10 +86,33 @@
             </c-col>
           </c-row>
           <c-chart
-            [data]="chart[3].data"
+            [data]="chart[5].data"
             [height]="300"
             [ngStyle]="{ 'marginTop.px': 40 }"
-            [options]="chart[3].options"
+            [options]="chart[5].options"
+            [type]="'bar'"
+          >
+            Bar chart for visits 4
+          </c-chart>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  <c-row class="mt-4">
+    <c-col xs="12" md="6" xl="6">
+      <c-card class="mb-4">
+        <c-card-body>
+          <c-row>
+            <c-col sm="12">
+              <h4 class="card-title mb-0 text-center" id="visitsChart4"> {{ 'DASHBOARD.CARDS.CARD_5.TITLE' | translate }} </h4>
+            </c-col>
+          </c-row>
+          <c-chart
+            [data]="chart[4].data"
+            [height]="300"
+            [ngStyle]="{ 'marginTop.px': 40 }"
+            [options]="chart[4].options"
             [type]="'bar'"
           >
             Bar chart for visits 4
